@@ -27,6 +27,7 @@ document.addEventListener('change', e => {
         showOrderButton()
         checkGender()
         checkSizeType()
+        checkZoom()
         addDescr('size', document.querySelector('.radio-size-p_current .radio-box__label').textContent);
     }
 })
@@ -59,12 +60,12 @@ document.addEventListener('click', e => {
             document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
             showOrderButton()
         } else {
-            console.log(document.querySelector('.radio-size-input').checked);
             hideOrderButton()
         }
         document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'print')
 
         checkSizeType()
+        checkZoom()
     }
 
     if (e.target.closest('.radio-color')) {
@@ -89,6 +90,7 @@ document.addEventListener('click', e => {
         addDescr('size', e.target.closest('.radio-size-p').querySelector('.radio-box__label').textContent);
         checkGender()
         checkSizeType()
+        checkZoom()
     }
 })
 
@@ -201,5 +203,17 @@ function checkSizeType() {
         document.querySelector('.prod-preview').classList.remove('bottom1');
         document.querySelector('.prod-preview').classList.remove('bottom2');
         document.querySelector('.prod-preview').classList.remove('sleeve');
+    }
+}
+
+function checkZoom() {
+    if (document.querySelector('.creator-main__step_first').getAttribute('data-choose') != 'own') {
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-zoom') === 'true') {
+            document.querySelector('.prod-preview').classList.add('zoom');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('zoom');
+        } 
+    } else {
+        document.querySelector('.prod-preview').classList.remove('zoom');
     }
 }

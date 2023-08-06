@@ -212,14 +212,14 @@
                                                 </div>
                                                 <h3 class="radio-box__label">5x5 Male</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-rec-size="pocket3">
+                                            <div class="radio-box radio-size-p" data-rec-size="pocket3" data-zoom="true">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview radio-box__preview_whitout-padding">
                                                     <img src="./img/sizes/pocket3.png" alt="">
                                                 </div>
                                                 <h3 class="radio-box__label">3x1 Male</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-rec-size="pocket4">
+                                            <div class="radio-box radio-size-p" data-rec-size="pocket4" data-zoom="true">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview radio-box__preview_whitout-padding">
                                                     <img src="./img/sizes/pocket4.png" alt="">
@@ -263,7 +263,7 @@
                                                 <button class="counter__button btn-plus">+</button>
                                             </div>
 
-                                            <div class="counter-price"><span class="counter-price__count" data-price="50">0</span><span class="currency">Zł</span></div>
+                                            <div class="counter-price"><span class="counter-price__count" data-price="50" data-digits-counter="400">0</span><span class="currency">Zł</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -296,7 +296,7 @@
                                     </div>
                                     <div class="total-bill">
                                         <span class="total-bill__title">Total:</span>
-                                        <span class="total-bill__value" id="price"><span class="total-bill__value-num">0</span><span class="currency">Zł</span></span>
+                                        <span class="total-bill__value" id="price"><span class="total-bill__value-num" data-digits-counter="400">0</span><span class="currency">Zł</span></span>
                                     </div>
 
                                     <button class="aside-button button" disabled>add to cart</button>
@@ -318,5 +318,6 @@
     <script src="./js/creator.js"></script>
     <script src="./js/dragndrop.js"></script>
     <script src="./js/counter.js"></script>
+    <script src="./js/anim-counter.js"></script>
 </body>
 </html>

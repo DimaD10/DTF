@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'own')
         checkGender()
         checkSizeType()
+        checkZoom()
         document.querySelectorAll('.radio-print-p').forEach(el => {
           el.classList.remove('radio-print-p_current')
         })
@@ -81,6 +82,7 @@ function updPreview() {
   document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'own')
   checkGender()
   checkSizeType()
+  checkZoom()
   document.querySelectorAll('.radio-print-p').forEach(el => {
     el.classList.remove('radio-print-p_current')
   })

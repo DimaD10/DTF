@@ -417,6 +417,10 @@ main {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  -webkit-transition: -webkit-transform ease-in-out 0.2s;
+  transition: -webkit-transform ease-in-out 0.2s;
+  transition: transform ease-in-out 0.2s;
+  transition: transform ease-in-out 0.2s, -webkit-transform ease-in-out 0.2s;
 }
 .prod-preview__cloth #cloth-prod-color {
   -webkit-transition: fill ease 0.2s;
@@ -542,6 +546,25 @@ main {
   width: 200%;
   -webkit-transform: translateX(-22px);
           transform: translateX(-22px);
+}
+
+.zoom .prod-preview__cloth, .zoom .prod-preview__print, .zoom .prod-preview__pocket {
+  -webkit-transform: scale(2) translate(-10%, 26%);
+          transform: scale(2) translate(-10%, 26%);
+}
+.zoom .prod-preview__print {
+  -webkit-transform: scale(2.6) translate(-8%, 360%) !important;
+          transform: scale(2.6) translate(-8%, 360%) !important;
+}
+.zoom .prod-preview__pocket {
+  opacity: 1;
+  -webkit-transform: scale(2) translate(-16%, 100%);
+          transform: scale(2) translate(-16%, 100%);
+}
+
+.zoom.pocket4 .prod-preview__print {
+  -webkit-transform: scale(2.15) translate(-10%, 140%) !important;
+          transform: scale(2.15) translate(-10%, 140%) !important;
 }
 
 .total-bill {
@@ -1070,4 +1093,9 @@ main {
 }
 .radio-size-p_current .radio-box__preview {
   background-color: #FFEEEE;
+}
+
+.counter-price {
+  font-size: 20px;
+  font-weight: 700;
 }

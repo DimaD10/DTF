@@ -7,18 +7,27 @@ window.addEventListener('load', () => {
 document.addEventListener('click', e => {
     if (e.target.classList.contains('counter__button')) {
         let num = e.target.closest('.counter').querySelector('.counter__num');
+        let init = false;
+
         if (e.target.textContent === '-') {
             if (num.textContent >= 2) {
                 num.textContent--
+                init = true;
             } else {
                 num.disabled;
+                init = false
             }
         } else if (e.target.textContent === '+') {
             num.textContent++ 
+            init = true;
         }
 
         calcPrice(num.textContent);
         addDescr('Quantity', num.textContent);
+
+        if (init) {
+            digitsCountersInit();
+        }
     }
 })
 

@@ -147,7 +147,7 @@
         object-position: center;
         pointer-events: none;
         user-select: none;
-    
+        transition: transform ease-in-out $animSpped;
 
         #cloth-prod-color {
             transition: fill ease .2s;
@@ -229,6 +229,7 @@
             transform: translateX(10%);
         }
     }
+
     &.pocket3 {
         .prod-preview__print  {
             width: 24px;
@@ -251,6 +252,8 @@
             opacity: 1;
         }
     }
+
+
 
     &.bottom1 {
         .prod-preview__print {
@@ -284,6 +287,23 @@
                 
             }
         }
+    }
+}
+.zoom {
+    .prod-preview__cloth, .prod-preview__print, .prod-preview__pocket {
+        transform: scale(2) translate(-10%, 26%);
+    }
+    .prod-preview__print {
+        transform: scale(2.6) translate(-8%, 360%) !important;
+    }
+    .prod-preview__pocket {
+        opacity: 1;
+        transform: scale(2) translate(-16%, 100%);
+    }
+}
+.zoom.pocket4 {
+    .prod-preview__print {
+        transform: scale(2.15) translate(-10%, 140%) !important;
     }
 }
 
@@ -759,4 +779,9 @@
     .radio-box__preview {
         background-color: #FFEEEE;
     }
+}
+
+.counter-price {
+    font-size: 20px;
+    font-weight: 700;
 }
