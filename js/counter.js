@@ -18,6 +18,7 @@ document.addEventListener('click', e => {
         }
 
         calcPrice(num.textContent);
+        addDescr('Quantity', num.textContent);
     }
 })
 
@@ -26,7 +27,6 @@ document.addEventListener('click', e => {
 // FUNCTIONS
 
 function calcPrice(times) {
-    console.log(price);
     document.querySelector('.counter-price__count').textContent = price * times;
     document.querySelector('.total-bill__value-num').textContent = price * times;
 }

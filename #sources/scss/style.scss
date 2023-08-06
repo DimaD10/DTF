@@ -125,12 +125,17 @@
     position: relative;
     border-radius: 8px;
     overflow: hidden;
+    cursor: pointer;
     border: 1px solid #333;
-    pointer-events: none;
-    user-select: none;
     &.active {
         .prod-preview__print {
             opacity: .95;
+        }
+    }
+
+    &:hover {
+        .prod-preview__print {
+            background-color: rgba(0, 51, 255, 0.2);
         }
     }
 
@@ -140,6 +145,9 @@
         height: 100%;
         object-fit: contain;
         object-position: center;
+        pointer-events: none;
+        user-select: none;
+    
 
         #cloth-prod-color {
             transition: fill ease .2s;
@@ -158,14 +166,123 @@
         left: 50%;
         transform: translateX(-50%);
         opacity: 0;
+        pointer-events: none;
+        display: block;
+        user-select: none;    
 
-        transition: opacity ease-in-out $animSpped;
+        transition: opacity ease-in-out $animSpped, top ease-in-out $animSpped, width ease-in-out $animSpped, height ease-in-out $animSpped, transform ease-in-out $animSpped, background-color ease-in-out $animSpped;
 
         img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             object-position: center;
+
+            transition: width ease-in-out $animSpped, ;
+        }
+    }
+    &__pocket {
+        width: 38px;
+        height: 38px;
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(20%);
+        opacity: 0;
+
+        transition: opacity ease-in-out $animSpped, transform ease-in-out $animSpped;
+    }
+
+    &.female {
+        .prod-preview__print {
+            width: 82px;
+            height: 82px;
+            top: 40px;
+        }
+    }
+    &.type1 {
+        .prod-preview__print {
+            height: 34px;
+            top: 44px;    
+        }
+    }
+    &.type2 {
+        .prod-preview__print {
+            height: 48px;
+            top: 44px;    
+        }
+    }
+
+    &.pocket1 {
+        .prod-preview__print  {
+            width: 40px;
+            height: 16px;
+            top: 50px;
+            transform: translateX(10%);
+        }
+    }
+    &.pocket2 {
+        .prod-preview__print  {
+            width: 40px;
+            height: 40px;
+            top: 50px;
+            transform: translateX(10%);
+        }
+    }
+    &.pocket3 {
+        .prod-preview__print  {
+            width: 24px;
+            height: 8px;
+            top: 62px;
+            transform: translateX(60%);
+        }
+        .prod-preview__pocket {
+            opacity: 1;
+        }
+    }
+    &.pocket4 {
+        .prod-preview__print  {
+            width: 24px;
+            height: 24px;
+            top: 55px;
+            transform: translateX(60%);
+        }
+        .prod-preview__pocket {
+            opacity: 1;
+        }
+    }
+
+    &.bottom1 {
+        .prod-preview__print {
+            width: 40px;
+            height: 16px;
+            top: 186px;
+            transform: translateX(20%) rotate(-10deg) skew(-2deg, -3deg);
+        }
+    }
+    &.bottom2 {
+        .prod-preview__print {
+            width: 40px;
+            height: 40px;
+            top: 162px;
+            transform: translateX(20%) rotate(-10deg) skew(-2deg, -3deg);
+        }
+    }
+
+    &.sleeve {
+        .prod-preview__print {
+            //background-color: #222;
+            width: 22px;
+            height: 30px;
+            overflow: hidden;
+            top: 65px;
+            transform: translateX(-372%) rotateY(-30deg) rotateX(30deg) skew(2deg, 3deg);
+
+            img {
+                width: 200%;
+                transform: translateX(-22px);
+                
+            }
         }
     }
 }

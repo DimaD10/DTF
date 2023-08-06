@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
         addDescr('size', 'own');
 
         removeCheckedFromRadioPrint()
+        document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'own')
+        checkGender()
+        checkSizeType()
+        document.querySelectorAll('.radio-print-p').forEach(el => {
+          el.classList.remove('radio-print-p_current')
+        })
 
         dragndrop.classList.add('active');
         previewArea.style.display = 'block';
@@ -57,18 +63,25 @@ document.addEventListener("DOMContentLoaded", () => {
 // FUNCTIONS
 
 function updPreview() {
-    document.querySelector('.prod-preview').classList.add('active');
-    document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
-    document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
-    showOrderButton();
+  document.querySelector('.prod-preview').classList.add('active');
+  document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
+  document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
+  showOrderButton();
 
-    document.getElementById('dragndrop-preview').src = window.URL.createObjectURL(this.files[0]);
-    document.getElementById('preview-print').src = window.URL.createObjectURL(this.files[0]);
-    document.querySelector('.dragndrop').classList.add('active');
-    previewArea.style.display = 'block';
-    document.querySelector('.creator-main__step_color').classList.add('creator-main__step_current')
+  document.getElementById('dragndrop-preview').src = window.URL.createObjectURL(this.files[0]);
+  document.getElementById('preview-print').src = window.URL.createObjectURL(this.files[0]);
+  document.querySelector('.dragndrop').classList.add('active');
+  previewArea.style.display = 'block';
+  document.querySelector('.creator-main__step_color').classList.add('creator-main__step_current')
 
-    addDescr('Artwork', 'own')
-    addDescr('size', 'own');
-    removeCheckedFromRadioPrint()
+  addDescr('Artwork', 'own')
+  addDescr('size', 'own');
+  removeCheckedFromRadioPrint()
+
+  document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'own')
+  checkGender()
+  checkSizeType()
+  document.querySelectorAll('.radio-print-p').forEach(el => {
+    el.classList.remove('radio-print-p_current')
+  })
 }

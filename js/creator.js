@@ -25,6 +25,8 @@ document.addEventListener('change', e => {
         document.querySelector('.size-list').classList.add('opened')
         document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
         showOrderButton()
+        checkGender()
+        checkSizeType()
         addDescr('size', document.querySelector('.radio-size-p_current .radio-box__label').textContent);
     }
 })
@@ -46,15 +48,23 @@ document.addEventListener('click', e => {
 
         let newValue = label.querySelector('.radio-box__label').textContent;
         addDescr('Artwork', newValue);
+        checkGender()
 
         document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current')
         document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current')
 
-        hideOrderButton()
 
         if (document.querySelector('.radio-size-input').checked) {
             addDescr('size', document.querySelector('.radio-size-p_current .radio-box__label').textContent);
+            document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
+            showOrderButton()
+        } else {
+            console.log(document.querySelector('.radio-size-input').checked);
+            hideOrderButton()
         }
+        document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'print')
+
+        checkSizeType()
     }
 
     if (e.target.closest('.radio-color')) {
@@ -77,6 +87,8 @@ document.addEventListener('click', e => {
         e.target.closest('.radio-size-p').classList.add('radio-size-p_current');
 
         addDescr('size', e.target.closest('.radio-size-p').querySelector('.radio-box__label').textContent);
+        checkGender()
+        checkSizeType()
     }
 })
 
@@ -120,4 +132,74 @@ function showOrderButton() {
 }
 function hideOrderButton() {
     document.querySelector('.aside-button').disabled = true;
+}
+
+function checkGender() {
+    if (document.querySelector('.radio-size-p_current').getAttribute('data-gender') === 'female' && document.querySelector('.creator-main__step_first').getAttribute('data-choose') != 'own') {
+        document.querySelector('.prod-preview').classList.add('female');
+    } else {
+        document.querySelector('.prod-preview').classList.remove('female');
+    }
+}
+
+function checkSizeType() {
+    if (document.querySelector('.creator-main__step_first').getAttribute('data-choose') != 'own') {
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'type1') {
+            document.querySelector('.prod-preview').classList.add('type1');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('type1');
+        } 
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'type2') {
+            document.querySelector('.prod-preview').classList.add('type2');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('type2');
+        }
+
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'pocket1') {
+            document.querySelector('.prod-preview').classList.add('pocket1');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('pocket1');
+        }
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'pocket2') {
+            document.querySelector('.prod-preview').classList.add('pocket2');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('pocket2');
+        }
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'pocket3') {
+            document.querySelector('.prod-preview').classList.add('pocket3');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('pocket3');
+        }
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'pocket4') {
+            document.querySelector('.prod-preview').classList.add('pocket4');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('pocket4');
+        }
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'bottom1') {
+            document.querySelector('.prod-preview').classList.add('bottom1');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('bottom1');
+        }
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'bottom2') {
+            document.querySelector('.prod-preview').classList.add('bottom2');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('bottom2');
+        }
+
+        if (document.querySelector('.radio-size-p_current').getAttribute('data-rec-size') === 'sleeve') {
+            document.querySelector('.prod-preview').classList.add('sleeve');
+        } else {
+            document.querySelector('.prod-preview').classList.remove('sleeve');
+        }
+    } else {
+        document.querySelector('.prod-preview').classList.remove('type1');
+        document.querySelector('.prod-preview').classList.remove('type2');
+        document.querySelector('.prod-preview').classList.remove('pocket1');
+        document.querySelector('.prod-preview').classList.remove('pocket2');
+        document.querySelector('.prod-preview').classList.remove('pocket3');
+        document.querySelector('.prod-preview').classList.remove('pocket4');
+        document.querySelector('.prod-preview').classList.remove('bottom1');
+        document.querySelector('.prod-preview').classList.remove('bottom2');
+        document.querySelector('.prod-preview').classList.remove('sleeve');
+    }
 }
