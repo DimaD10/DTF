@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const files = e.dataTransfer.files;
         if (files.length > 0) {
           document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
-          //document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
       
           document.querySelector('.dragndrop').classList.add('active');
           document.querySelectorAll('.dragndrop__preview').forEach(el => {
@@ -53,20 +52,41 @@ document.addEventListener("DOMContentLoaded", () => {
               el.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'block';
               el.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
               el.closest('.dragndrop').querySelector('.dragndrop__preview').classList.remove('active')
+              
+              document.querySelector('.enter-size-pieces').classList.add('opened')
+              document.querySelector('.enter-size-gallery').classList.remove('opened')
+
+              document.querySelector('.prod-preview__cloth').classList.remove('active');
+              document.querySelector('.prod-preview__roll').classList.add('active');
+              document.querySelector('.prod-preview').classList.remove('active');    
+              document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))    
             } else {
               el.closest('.dragndrop').querySelector('.dragndrop__pdf-label').classList.remove('active')
               el.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'none';
               el.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'block';
               el.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active')
+
+              document.querySelector('.enter-size-pieces').classList.remove('opened')
+              document.querySelector('.enter-size-gallery').classList.add('opened')
+
+              document.querySelector('.prod-preview__cloth').classList.add('active');
+              document.querySelector('.prod-preview__roll').classList.remove('active');
+              document.querySelector('.prod-preview').classList.add('active');
+              document.querySelector('.prod-preview__print img').src = window.URL.createObjectURL(files[0]); 
+              document.querySelector('.order-box__preview img').setAttribute('src', window.URL.createObjectURL(files[0]));        
             }
         
             if (document.getElementById('custom').checked) {
               document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current');
               document.querySelector('.creator-main__step_size').classList.remove('hidden')
+              document.getElementById('cust').checked = true;
             } else {
               document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
               document.querySelector('.creator-main__step_quantity').classList.remove('hidden')
               showOrderButton();
+              document.querySelectorAll('.radio-size-input').forEach(el => {
+                el.checked = false;
+              })
             }
 
             document.querySelector('.order-box__preview img').src = window.URL.createObjectURL(files[0]);
@@ -93,9 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
           dragndrop.classList.add('active');
           document.querySelector('.creator-main__step_color').classList.add('creator-main__step_current')
 
-          document.querySelectorAll('.radio-size-input').forEach(el => {
-            el.checked = false;
-          })
           document.querySelector('.size-list').classList.remove('opened')
 
           // Putting the preview, title and size to the quantitys preview
@@ -128,23 +145,49 @@ function updPreview(el) {
     el.target.closest('.dragndrop').querySelector('.dragndrop__preview img').src = window.URL.createObjectURL(el.target.files[0]);
     el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active');
 
-    document.querySelector('.enter-size-gallery').classList.remove('opened')
-
     if (el.target.files[0].type === 'application/pdf') {
       el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').classList.add('active')
       el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'block';
       el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
       el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.remove('active')
+
+      document.querySelector('.enter-size-pieces').classList.remove('opened')
+      document.querySelector('.enter-size-gallery').classList.add('opened')
+
+      document.querySelector(".creator-main__step_color").classList.remove('creator-main__step_current')
+      document.querySelector(".creator-main__step_color").classList.add('hidden')
+
+      document.querySelector('.prod-preview__cloth').classList.remove('active');
+      document.querySelector('.prod-preview__roll').classList.add('active');
+      document.querySelector('.prod-preview').classList.remove('active');
+      document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))
     } else {
       el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').classList.remove('active')
       el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'none';
       el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'block';
       el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active')
+
+      document.querySelector('.enter-size-pieces').classList.remove('opened')
+      document.querySelector('.enter-size-gallery').classList.add('opened')
+
+      document.querySelector(".creator-main__step_color").classList.add('creator-main__step_current')
+      document.querySelector(".creator-main__step_color").classList.remove('hidden')
+
+      document.querySelector('.prod-preview__cloth').classList.add('active');
+      document.querySelector('.prod-preview__roll').classList.remove('active');
+      document.querySelector('.prod-preview').classList.add('active');
+      document.querySelector('.prod-preview__print img').src = window.URL.createObjectURL(el.target.files[0]);
+      document.querySelector('.order-box__preview img').setAttribute('src', window.URL.createObjectURL(el.target.files[0]));        
     }
 
     if (document.getElementById('custom').checked) {
       document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current');
       document.querySelector('.creator-main__step_size').classList.remove('hidden')
+      document.getElementById('cust').checked = true;
+    } else {
+      document.querySelectorAll('.radio-size-input').forEach(el => {
+        el.checked = false;
+      })
     }
   } else {
     hideOrderButton()
@@ -170,13 +213,9 @@ function updPreview(el) {
     el.classList.remove('radio-print-p_current')
   })
 
-  document.querySelectorAll('.radio-size-input').forEach(el => {
-    el.checked = false;
-  })
   document.querySelector('.size-list').classList.remove('opened')
 
   // Putting the preview, title and size to the quantitys preview
-  document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))
   document.querySelector('.order-box__title').textContent = 'Own file';
   document.querySelector('.order-box__size').textContent = '57x100cm';  
 }

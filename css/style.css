@@ -679,6 +679,9 @@ main {
 .dragndrop {
   display: none;
   padding: 30px 0;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   gap: 48px;
 }
 @media (max-width: 1200px) {
@@ -746,7 +749,7 @@ main {
   width: 100%;
 }
 .dragndrop__area {
-  min-height: 240px;
+  min-height: 400px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   padding: 32px 28px;
@@ -1349,6 +1352,7 @@ main {
   font-size: 20px;
   font-weight: 500;
   text-align: center;
+  line-height: 120%;
 }
 .enter-size-gallery__demensions-row {
   display: -webkit-box;
@@ -1397,6 +1401,7 @@ main {
 .enter-size-pieces p {
   font-size: 20px;
   font-weight: 500;
+  line-height: 120%;
   text-align: center;
 }
 .enter-size-pieces__row {
