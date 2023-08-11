@@ -1,78 +1,163 @@
-dragndrop.querySelector('input').addEventListener('change', updPreview);
+dragndrop.forEach(el => {
+  el.querySelector('input').addEventListener('change', e => updPreview(e));
+})
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const dropArea = document.querySelector(".dragndrop__area");
+    const dropArea = document.querySelectorAll(".dragndrop__area");
     const dragndrop = document.querySelector(".dragndrop");
 
-    dropArea.addEventListener("dragenter", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropArea.classList.add("dragging");
-    });
+    dropArea.forEach(el => {
+      el.addEventListener("dragenter", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        el.classList.add("dragging");
+      });
+  
+      el.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+  
+      el.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        el.classList.remove("dragging");
+      });
+  
+      el.addEventListener("drop", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        el.classList.remove("dragging");
+  
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
+          //document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
+      
+          document.querySelector('.dragndrop').classList.add('active');
+          document.querySelectorAll('.dragndrop__preview').forEach(el => {
+            el.style.display = 'none';
+          })
+          document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
+            el.style.display = 'none';
+          })
+          if (files[0]) {
+            el.closest('.dragndrop').querySelector('.dragndrop__preview img').src = window.URL.createObjectURL(files[0]);
+            el.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active');
 
-    dropArea.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-    });
+            document.querySelector('.enter-size-gallery').classList.remove('opened')
 
-    dropArea.addEventListener("dragleave", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropArea.classList.remove("dragging");
-    });
+            if (files[0].type === 'application/pdf') {
+              el.closest('.dragndrop').querySelector('.dragndrop__pdf-label').classList.add('active')
+              el.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'block';
+              el.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
+              el.closest('.dragndrop').querySelector('.dragndrop__preview').classList.remove('active')
+            } else {
+              el.closest('.dragndrop').querySelector('.dragndrop__pdf-label').classList.remove('active')
+              el.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'none';
+              el.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'block';
+              el.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active')
+            }
+        
+            if (document.getElementById('custom').checked) {
+              document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current');
+              document.querySelector('.creator-main__step_size').classList.remove('hidden')
+            } else {
+              document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+              document.querySelector('.creator-main__step_quantity').classList.remove('hidden')
+              showOrderButton();
+            }
 
-    dropArea.addEventListener("drop", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropArea.classList.remove("dragging");
+            document.querySelector('.order-box__preview img').src = window.URL.createObjectURL(files[0]);
+          } else {
+            hideOrderButton()
+            el.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
+        
+            document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_size').classList.add('hidden')
+        
+            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+            document.querySelector(".creator-main__step_quantity").classList.add('hidden')
+          }
 
-      const files = e.dataTransfer.files;
-      if (files.length > 0) {
-        document.querySelector('.prod-preview').classList.add('active');
-        document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
-        document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
-        showOrderButton();
+          addDescr('Artwork', 'own')
+          addDescr('size', 'own');
+  
+          removeCheckedFromRadioPrint()
+          document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'own')
+          document.querySelectorAll('.radio-print-p').forEach(el => {
+            el.classList.remove('radio-print-p_current')
+          })
+  
+          dragndrop.classList.add('active');
+          document.querySelector('.creator-main__step_color').classList.add('creator-main__step_current')
 
-        const file = files[0];
+          document.querySelectorAll('.radio-size-input').forEach(el => {
+            el.checked = false;
+          })
+          document.querySelector('.size-list').classList.remove('opened')
 
-        const dragndropPreview = document.getElementById('dragndrop-preview');
-        dragndropPreview.src = window.URL.createObjectURL(file);
+          // Putting the preview, title and size to the quantitys preview
+          document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))
+          document.querySelector('.order-box__title').textContent = 'Own file';
+          document.querySelector('.order-box__size').textContent = '57x100cm';  
+        }
+      });
+    })
 
-        const previewPrint = document.getElementById('preview-print');
-        previewPrint.src = window.URL.createObjectURL(file);
-        addDescr('Artwork', 'own')
-        addDescr('size', 'own');
-
-        removeCheckedFromRadioPrint()
-        document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'own')
-        checkGender()
-        checkSizeType()
-        checkZoom()
-        document.querySelectorAll('.radio-print-p').forEach(el => {
-          el.classList.remove('radio-print-p_current')
-        })
-
-        dragndrop.classList.add('active');
-        previewArea.style.display = 'block';
-        document.querySelector('.creator-main__step_color').classList.add('creator-main__step_current')
-      }
-    });
 });
 
 
 // FUNCTIONS
 
-function updPreview() {
-  document.querySelector('.prod-preview').classList.add('active');
-  document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
-  document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
-  showOrderButton();
+function updPreview(el) {
 
-  document.getElementById('dragndrop-preview').src = window.URL.createObjectURL(this.files[0]);
-  document.getElementById('preview-print').src = window.URL.createObjectURL(this.files[0]);
+  document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
+
   document.querySelector('.dragndrop').classList.add('active');
-  previewArea.style.display = 'block';
+  document.querySelectorAll('.dragndrop__preview').forEach(el => {
+    el.style.display = 'none';
+    el.classList.remove('active')
+  })
+  document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
+    el.style.display = 'none';
+    el.classList.remove('active')
+  })
+  if (el.target.files[0]) {
+    el.target.closest('.dragndrop').querySelector('.dragndrop__preview img').src = window.URL.createObjectURL(el.target.files[0]);
+    el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active');
+
+    document.querySelector('.enter-size-gallery').classList.remove('opened')
+
+    if (el.target.files[0].type === 'application/pdf') {
+      el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').classList.add('active')
+      el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'block';
+      el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
+      el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.remove('active')
+    } else {
+      el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').classList.remove('active')
+      el.target.closest('.dragndrop').querySelector('.dragndrop__pdf-label').style.display = 'none';
+      el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'block';
+      el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active')
+    }
+
+    if (document.getElementById('custom').checked) {
+      document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current');
+      document.querySelector('.creator-main__step_size').classList.remove('hidden')
+    }
+  } else {
+    hideOrderButton()
+    el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
+
+    document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current');
+    document.querySelector('.creator-main__step_size').classList.add('hidden')
+
+    document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+    document.querySelector(".creator-main__step_quantity").classList.add('hidden')
+  }
+
+  
   document.querySelector('.creator-main__step_color').classList.add('creator-main__step_current')
 
   addDescr('Artwork', 'own')
@@ -80,10 +165,18 @@ function updPreview() {
   removeCheckedFromRadioPrint()
 
   document.querySelector('.creator-main__step_first').setAttribute('data-choose', 'own')
-  checkGender()
-  checkSizeType()
-  checkZoom()
+
   document.querySelectorAll('.radio-print-p').forEach(el => {
     el.classList.remove('radio-print-p_current')
   })
+
+  document.querySelectorAll('.radio-size-input').forEach(el => {
+    el.checked = false;
+  })
+  document.querySelector('.size-list').classList.remove('opened')
+
+  // Putting the preview, title and size to the quantitys preview
+  document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))
+  document.querySelector('.order-box__title').textContent = 'Own file';
+  document.querySelector('.order-box__size').textContent = '57x100cm';  
 }

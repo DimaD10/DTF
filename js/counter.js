@@ -36,6 +36,6 @@ document.addEventListener('click', e => {
 // FUNCTIONS
 
 function calcPrice(times) {
-    document.querySelector('.counter-price__count').textContent = price * times;
-    document.querySelector('.total-bill__value-num').textContent = price * times;
+    //document.querySelector('.counter-price__count').textContent = price * times;
+    //document.querySelector('.total-bill__value-num').textContent = price * times;
 }
