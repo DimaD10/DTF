@@ -355,6 +355,17 @@ main {
 .creator-main__step.hidden {
   display: none;
 }
+.creator-main__message-quantity {
+  display: none;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 30px;
+  font-size: 16px;
+  color: #777;
+}
+.creator-main__message-quantity.active {
+  display: block;
+}
 
 .frame-box {
   background-color: #fff;

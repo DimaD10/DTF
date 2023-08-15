@@ -165,7 +165,9 @@ document.addEventListener('change', e => {
     if (e.target === document.getElementById('own-print-custom')) {
         if (document.getElementById('own-print-custom').files[0]) {
             document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current')
-            document.querySelector(".creator-main__step_size").classList.remove('hidden')    
+            document.querySelector(".creator-main__step_size").classList.remove('hidden')
+
+            document.querySelector('.creator-main__message-quantity').classList.remove('active');
         }
     }
     if (e.target === document.getElementById('own-print-design')) {
@@ -175,6 +177,8 @@ document.addEventListener('change', e => {
             document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
             document.querySelector(".creator-main__step_quantity").classList.remove('hidden') 
             showOrderButton()
+
+            document.querySelector('.creator-main__message-quantity').classList.add('active');
         }
     }
 
@@ -212,6 +216,7 @@ document.querySelector('.dragndrop__other-way-paste').addEventListener('input', 
 
 document.addEventListener('click', e => {
     if (e.target.closest('.radio-print-p')) {
+        document.querySelector('.creator-main__message-quantity').classList.remove('active');
         document.querySelector('.dragndrop__pdf-label').style.display = 'none'
         document.querySelector('.dragndrop_custom').classList.remove('opened')
         document.querySelector('.dragndrop_design').classList.remove('opened')
