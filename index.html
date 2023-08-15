@@ -91,8 +91,8 @@
                                     </div>
                                     <div class="frame-box__body">
                                         <div class="radio-parent">
-                                            <input type="radio" name="way" class="upload-input" id="design" data-open-dragndrop-design data-close-dragndrop-custom>
-                                            <input type="radio" name="way" class="upload-input" id="custom" data-open-dragndrop-custom data-close-dragndrop-design>
+                                            <input type="radio" name="way" class="upload-input" id="design" value="design-v" data-open-dragndrop-design data-close-dragndrop-custom>
+                                            <input type="radio" name="way" class="upload-input" id="custom" value="custom-v" data-open-dragndrop-custom data-close-dragndrop-design>
 
                                             <label for="design" class="button radio-label" id="design-l">I want to order by the meters</label>
                                             <label for="custom" class="button radio-label" id="custom-l">I want to order pieces</label>
@@ -155,6 +155,15 @@
                                                 </ol>
                                                 <br>
                                                 <p>To minimize the risk of making a mistake - we have prepared templates in the most popular extensions, to be downloaded from the home page.</p>
+                                            </div>
+                                            <div class="dragndrop__other-way">
+                                                <div class="dragndrop__other-way-row">
+                                                    <input type="checkbox" name="by-link" id="upload-by-link" class="checkbox-input">
+                                                    <label for="upload-by-link" class="checkbox-custom" id="custom-checkbox-l"></label>
+                                                    <label for="upload-by-link" class="dragndrop__other-way-text">Use a file link</label>    
+                                                </div>
+                                                <p>please send a link to exactly the file you want to see on the printout(only .TIFF)</p>
+                                                <input type="text" class="dragndrop__other-way-paste">
                                             </div>
                                         </div>
 
@@ -224,68 +233,68 @@
                                         </div>
 
                                         <div class="size-list">
-                                            <div class="radio-box radio-size-p">
+                                            <div class="radio-box radio-size-p" data-long-side-size="40">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/basic-size.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">13x13 Male</h3>
+                                                <h3 class="radio-box__label">Male XL</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-rec-size="type1">
+                                            <div class="radio-box radio-size-p" data-rec-size="type1" data-long-side-size="10">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/size1.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">13x5 Male</h3>
+                                                <h3 class="radio-box__label">Male S</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-rec-size="type2">
+                                            <div class="radio-box radio-size-p" data-rec-size="type2" data-long-side-size="28">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/size2.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">13x7 Male</h3>
+                                                <h3 class="radio-box__label">Male L</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-gender="female">
+                                            <div class="radio-box radio-size-p" data-gender="female" data-long-side-size="35">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/basic-female.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">8x8 Female</h3>
+                                                <h3 class="radio-box__label">Female XL</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-gender="female" data-rec-size="type1">
+                                            <div class="radio-box radio-size-p" data-gender="female" data-rec-size="type1" data-long-side-size="8">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/size1-female.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">8x3 Female</h3>
+                                                <h3 class="radio-box__label">Female S</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-gender="female" data-rec-size="type2">
+                                            <div class="radio-box radio-size-p" data-gender="female" data-rec-size="type2" data-long-side-size="26">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/size2-female.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">8x5 Female</h3>
+                                                <h3 class="radio-box__label">Female L</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p">
+                                            <div class="radio-box radio-size-p" data-long-side-size="30">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/basic-kids.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">5x5 Kids</h3>
+                                                <h3 class="radio-box__label">Kids XL</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-rec-size="type1">
+                                            <div class="radio-box radio-size-p" data-rec-size="type1" data-long-side-size="6">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/size1-kids.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">5x2 Kids</h3>
+                                                <h3 class="radio-box__label">Kids S</h3>
                                             </div>
-                                            <div class="radio-box radio-size-p" data-rec-size="type2">
+                                            <div class="radio-box radio-size-p" data-rec-size="type2" data-long-side-size="20">
                                                 <div class="radio-box__marker"></div>
                                                 <div class="radio-box__preview">
                                                     <img src="./img/sizes/size2-kids.png" alt="">
                                                 </div>
-                                                <h3 class="radio-box__label">5x3 Kids</h3>
+                                                <h3 class="radio-box__label">Kids L</h3>
                                             </div>
                                         </div>
 
@@ -299,7 +308,7 @@
                                             <div class="enter-size-gallery__demensions">
                                                 <div class="enter-size-gallery__demensions-row">
                                                     <div class="enter-size-gallery__demensions-title">Width:</div>
-                                                    <div class="enter-size-gallery__demensions-widht">0cm</div>
+                                                    <div class="enter-size-gallery__demensions-width">0cm</div>
                                                 </div>
                                                 <div class="enter-size-gallery__demensions-row">
                                                     <div class="enter-size-gallery__demensions-title">Height:</div>
@@ -342,13 +351,13 @@
                                                 <div class="order-box__preview"><img src="" alt=""></div>
                                                 <h3 class="order-box__title"></h3>
                                                 <p class="order-box__size"></p>
-                                                <div class="counter">
+                                                <div class="counter counter-quantity">
                                                     <button class="counter__button btn-minus">-</button>
                                                     <div class="counter__num">1</div>
                                                     <button class="counter__button btn-plus">+</button>
                                                 </div>
     
-                                                <div class="counter-price"><span class="counter-price__count" data-price="50" data-digits-counter="400">0</span><span class="currency">Zł</span></div>    
+                                                <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">Zł</span></div>    
                                             </div>
                                         </div>
                                     </div>
@@ -385,6 +394,8 @@
                     </div>
                 </div>
             </section>
+
+            <img src="./img/icons/upload-icon.svg" alt="" class="size-check">
         </main>
     </div>
 
@@ -399,5 +410,7 @@
     <script src="./js/counter.js"></script>
     <script src="./js/anim-counter.js"></script>
     <script src="./js/categories.js"></script>
+    <script src="./js/calc-size.js"></script>
+    <script src="./js/calc-price.js"></script>
 </body>
 </html>

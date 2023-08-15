@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
               document.querySelector('.prod-preview__roll').classList.remove('active');
               document.querySelector('.prod-preview').classList.add('active');
               document.querySelector('.prod-preview__print img').src = window.URL.createObjectURL(files[0]); 
-              document.querySelector('.order-box__preview img').setAttribute('src', window.URL.createObjectURL(files[0]));        
+              document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));        
             }
         
             if (document.getElementById('custom').checked) {
@@ -87,9 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
               document.querySelectorAll('.radio-size-input').forEach(el => {
                 el.checked = false;
               })
+
+              calcPrice(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
             }
 
-            document.querySelector('.order-box__preview img').src = window.URL.createObjectURL(files[0]);
+            rmTypes()
           } else {
             hideOrderButton()
             el.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
@@ -116,9 +118,12 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelector('.size-list').classList.remove('opened')
 
           // Putting the preview, title and size to the quantitys preview
-          document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))
           document.querySelector('.order-box__title').textContent = 'Own file';
-          document.querySelector('.order-box__size').textContent = '57x100cm';  
+          document.querySelector('.order-box__size').textContent = '57x100cm'; 
+
+          document.getElementById('upload-by-link').checked = false;
+          document.querySelector('.dragndrop__other-way').classList.remove('active') 
+          document.querySelector('.dragndrop__other-way-paste').value = ''; 
         }
       });
     })
@@ -151,8 +156,8 @@ function updPreview(el) {
       el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
       el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.remove('active')
 
-      document.querySelector('.enter-size-pieces').classList.remove('opened')
-      document.querySelector('.enter-size-gallery').classList.add('opened')
+      document.querySelector('.enter-size-pieces').classList.add('opened')
+      document.querySelector('.enter-size-gallery').classList.remove('opened')
 
       document.querySelector(".creator-main__step_color").classList.remove('creator-main__step_current')
       document.querySelector(".creator-main__step_color").classList.add('hidden')
@@ -188,7 +193,10 @@ function updPreview(el) {
       document.querySelectorAll('.radio-size-input').forEach(el => {
         el.checked = false;
       })
+
+      calcPrice(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
     }
+    rmTypes()
   } else {
     hideOrderButton()
     el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
@@ -218,4 +226,21 @@ function updPreview(el) {
   // Putting the preview, title and size to the quantitys preview
   document.querySelector('.order-box__title').textContent = 'Own file';
   document.querySelector('.order-box__size').textContent = '57x100cm';  
+
+  document.getElementById('upload-by-link').checked = false;
+  document.querySelector('.dragndrop__other-way').classList.remove('active') 
+  document.querySelector('.dragndrop__other-way-paste').value = ''; 
+}
+
+
+function rmTypes() {
+  document.querySelector('.prod-preview').classList.remove('type1');
+  document.querySelector('.prod-preview').classList.remove('type2');
+  document.querySelector('.prod-preview').classList.remove('pocket1');
+  document.querySelector('.prod-preview').classList.remove('pocket2');
+  document.querySelector('.prod-preview').classList.remove('pocket3');
+  document.querySelector('.prod-preview').classList.remove('pocket4');
+  document.querySelector('.prod-preview').classList.remove('bottom1');
+  document.querySelector('.prod-preview').classList.remove('bottom2');
+  document.querySelector('.prod-preview').classList.remove('sleeve');
 }

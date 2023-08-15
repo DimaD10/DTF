@@ -181,7 +181,34 @@ document.addEventListener('change', e => {
     if (e.target === document.getElementById('own-print-design')) {
         showOrderButton()
     }
+
+    if (e.target.matches('input#upload-by-link')) {
+        if (e.target.checked) {
+            e.target.closest('.dragndrop__other-way').classList.add('active')
+        } else {
+            e.target.closest('.dragndrop__other-way').classList.remove('active')  
+        }
+    }
 })
+
+document.querySelector('.dragndrop__other-way-paste').addEventListener('input', e => {
+    if (e.target.value !== '') {
+        document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+        document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
+        showOrderButton();
+        document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
+
+        document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
+            el.classList.remove('active')
+            el.style.display = 'none';
+        })
+    } else {
+        document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+        document.querySelector('.creator-main__step_quantity').classList.add('hidden');
+        hideOrderButton();
+    }
+});
+
 
 document.addEventListener('click', e => {
     if (e.target.closest('.radio-print-p')) {
@@ -248,6 +275,7 @@ document.addEventListener('click', e => {
         document.querySelectorAll('.radio-size-input').forEach(el => {
             el.checked = false;
         })
+        document.querySelector('.enter-size-gallery').classList.remove('opened')
     }
 
     if (e.target.closest('.radio-color')) {
@@ -280,6 +308,10 @@ document.addEventListener('click', e => {
         }
 
         showOrderButton()
+
+        document.querySelector('.size-check').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));
+        checkSizes()
+        enterSizes()
     }
 
     if (e.target.classList.contains('enter-size-gallery__button')) {

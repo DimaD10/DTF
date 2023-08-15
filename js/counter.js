@@ -1,4 +1,4 @@
-const price = document.querySelector('.counter-price__count').getAttribute('data-price');
+let price = document.querySelector('.counter-price__count').getAttribute('data-price-count');
 
 window.addEventListener('load', () => {
     calcPrice(1)
@@ -12,6 +12,7 @@ document.addEventListener('click', e => {
         if (e.target.textContent === '-') {
             if (num.textContent >= 2) {
                 num.textContent--
+                updDimensions(num.textContent)
                 init = true;
             } else {
                 num.disabled;
@@ -19,11 +20,14 @@ document.addEventListener('click', e => {
             }
         } else if (e.target.textContent === '+') {
             num.textContent++ 
+            updDimensions(num.textContent)
             init = true;
         }
 
-        calcPrice(num.textContent);
-        addDescr('Quantity', num.textContent);
+        if (e.target.closest('.counter-quantity')) {
+            addDescr('Quantity', num.textContent);
+            calcPrice(num.textContent);
+        }
 
         if (init) {
             digitsCountersInit();
@@ -36,6 +40,11 @@ document.addEventListener('click', e => {
 // FUNCTIONS
 
 function calcPrice(times) {
-    //document.querySelector('.counter-price__count').textContent = price * times;
-    //document.querySelector('.total-bill__value-num').textContent = price * times;
+    if (document.querySelector('.counter-price__count').getAttribute('data-price-count') < 1) {
+        price = 1;
+    } else {
+        price = parseInt(document.querySelector('.counter-price__count').getAttribute('data-price-count'));
+    }
+    document.querySelector('.counter-price__count').textContent = price * times;
+    document.querySelector('.total-bill__value-num').textContent = price * times;
 }
