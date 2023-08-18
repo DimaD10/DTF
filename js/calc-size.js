@@ -13,8 +13,6 @@ document.addEventListener('click', e =>  {
                 if (parseInt(el.getAttribute('data-long-side-size')) === longSide) {
                     sameEl = el;
                 }
-
-                console.log(parseInt(el.getAttribute('data-long-side-size')), longSide);
             })
 
             if (sameEl != '') {
