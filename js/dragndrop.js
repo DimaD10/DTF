@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
             el.style.display = 'none';
           })
           if (files[0]) {
+            cleanAndAddOrder()
+
             el.closest('.dragndrop').querySelector('.dragndrop__preview img').src = window.URL.createObjectURL(files[0]);
             el.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active');
 
@@ -88,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 el.checked = false;
               })
 
-              calcPrice(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
+              calcPrice()
             }
 
             rmTypes()
@@ -124,6 +126,22 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById('upload-by-link').checked = false;
           document.querySelector('.dragndrop__other-way').classList.remove('active') 
           document.querySelector('.dragndrop__other-way-paste').value = ''; 
+
+          let count = document.querySelector('.order-box .counter__num').textContent;
+
+          if (count > 0 && count <= 2) {
+            document.querySelector('.counter-price__count').setAttribute('data-price-count', 50)
+          } else if (count > 2 && count <= 10) {
+            document.querySelector('.counter-price__count').setAttribute('data-price-count', 45)
+          } else if (count > 10 && count < 50) {
+            document.querySelector('.counter-price__count').setAttribute('data-price-count', 43)
+          } else {
+            document.querySelector('.counter-price__count').setAttribute('data-price-count', 41)
+          }
+        
+          calcPrice()
+          calcTotalPrice()
+          editSizeEnter()
         }
       });
     })
@@ -147,6 +165,8 @@ function updPreview(el) {
     el.classList.remove('active')
   })
   if (el.target.files[0]) {
+    cleanAndAddOrder()
+
     el.target.closest('.dragndrop').querySelector('.dragndrop__preview img').src = window.URL.createObjectURL(el.target.files[0]);
     el.target.closest('.dragndrop').querySelector('.dragndrop__preview').classList.add('active');
 
@@ -193,8 +213,6 @@ function updPreview(el) {
       document.querySelectorAll('.radio-size-input').forEach(el => {
         el.checked = false;
       })
-
-      calcPrice(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
     }
     rmTypes()
   } else {
@@ -225,11 +243,28 @@ function updPreview(el) {
 
   // Putting the preview, title and size to the quantitys preview
   document.querySelector('.order-box__title').textContent = 'Own file';
-  document.querySelector('.order-box__size').textContent = '57x100cm';  
+  document.querySelector('.order-box__size').textContent = '57cm x 100cm';  
 
   document.getElementById('upload-by-link').checked = false;
   document.querySelector('.dragndrop__other-way').classList.remove('active') 
   document.querySelector('.dragndrop__other-way-paste').value = ''; 
+
+
+  let count = document.querySelector('.order-box .counter__num').textContent;
+
+  if (count > 0 && count <= 2) {
+    document.querySelector('.counter-price__count').setAttribute('data-price-count', 50)
+  } else if (count > 2 && count <= 10) {
+    document.querySelector('.counter-price__count').setAttribute('data-price-count', 45)
+  } else if (count > 10 && count < 50) {
+    document.querySelector('.counter-price__count').setAttribute('data-price-count', 43)
+  } else {
+    document.querySelector('.counter-price__count').setAttribute('data-price-count', 41)
+  }
+
+  calcPrice()
+  calcTotalPrice()
+  editSizeEnter()
 }
 
 
@@ -243,4 +278,42 @@ function rmTypes() {
   document.querySelector('.prod-preview').classList.remove('bottom1');
   document.querySelector('.prod-preview').classList.remove('bottom2');
   document.querySelector('.prod-preview').classList.remove('sleeve');
+}
+
+function cleanAndAddOrder() {
+  if (document.querySelectorAll('.order-box').length > 0) {
+    document.querySelectorAll('.order-box').forEach(el => {
+        el.remove()
+    })
+  }
+
+  let newOrder = `
+    <div class="order-box">
+        <div class="order-box__preview">
+            <img src="" alt="">
+            <div class="order-box__overlay">
+                <button class="order-box__rm-btn">
+                    <svg class="rm-icon" width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.81628 2.93878C7.23961 1.80925 8.3818 1 9.72442 1C11.0671 1 12.2093 1.80925 12.6326 2.93878" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.0612 4.87756H1" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M16.0535 14.4403C15.8777 17.0757 15.7898 18.3934 14.9308 19.1967C14.0719 20 12.7507 20 10.1085 20H9.34045C6.69819 20 5.37706 20 4.51808 19.1967C3.6591 18.3934 3.57121 17.0757 3.39546 14.4403L2.93872 7.59186M16.5101 7.59186L16.3115 10.5698" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M7.2041 9.9184L7.59186 14.9592" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M12.2449 9.9184L11.4694 14.9592" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <h3 class="order-box__title">Own</h3>
+        <p class="order-box__size">56cm x 100cm</p>
+        <div class="counter counter-quantity">
+            <button class="counter__button btn-minus">-</button>
+            <div class="counter__num">1</div>
+            <button class="counter__button btn-plus">+</button>
+        </div>
+
+        <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">Zł</span></div>    
+    </div>
+  `;
+
+  document.querySelector('.creator-main__step_quantity .counter-parent').insertAdjacentHTML('beforeend', newOrder);
 }

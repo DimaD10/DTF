@@ -69,21 +69,22 @@ document.addEventListener('change', e => {
         if (document.getElementById('rec').checked) {
             document.querySelector('.size-list').classList.add('opened')
             document.querySelector('.enter-size-gallery').classList.remove('opened')
-            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
-            document.querySelector(".creator-main__step_quantity").classList.add('hidden')
+            //document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+            //document.querySelector(".creator-main__step_quantity").classList.add('hidden')
         } else {
             document.querySelector('.size-list').classList.remove('opened')
             showOrderButton()
             
             if (document.getElementById('artwork-n').checked) {
                 document.querySelector('.enter-size-gallery').classList.add('opened');
-                document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
-                document.querySelector(".creator-main__step_quantity").classList.add('hidden')
-                hideOrderButton()
+                //document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+                //document.querySelector(".creator-main__step_quantity").classList.add('hidden')
+                //hideOrderButton()
 
+                /*
                 document.querySelectorAll('.radio-size-p').forEach(el => {
                     el.classList.remove('radio-size-p_current')
-                })
+                })*/
             } else {
                 document.querySelector('.enter-size-gallery').classList.remove('opened')
             }
@@ -156,10 +157,48 @@ document.addEventListener('change', e => {
         })
 
         document.querySelector('.enter-size-pieces').classList.remove('opened')
+
+        document.querySelectorAll('.radio-size-p').forEach(el => {
+            if (el.classList.contains('radio-size-p_current')) {
+                document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                document.querySelector(".creator-main__step_quantity").classList.remove('hidden')
+            }
+        })
+
+        document.getElementById('cust').checked = false;
+
+        let gActive = false
+        document.querySelectorAll('.radio-print-p').forEach(el => {
+            if (el.classList.contains('radio-print-p_current')) {
+                gActive = true;
+            }
+        })
+        if (gActive) {
+            document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
+            document.querySelector(".creator-main__step_quantity").classList.remove('hidden')
+        } else {
+            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current')
+            document.querySelector(".creator-main__step_quantity").classList.add('hidden')  
+            if (document.querySelectorAll('.order-box').length > 0) {
+                document.querySelectorAll('.order-box').forEach(el => {
+                    el.remove()
+                })
+            }
+            document.querySelectorAll('.radio-size-p').forEach(el => {
+                el.classList.remove('radio-size-p_current')
+            })
+        }
     }
 
     if (e.target === document.getElementById('artwork-y')) {
         document.getElementById('rec-l').style.display = 'none';
+
+        document.querySelectorAll('.radio-size-p').forEach(el => {
+            if (el.classList.contains('radio-size-p_current')) {
+                document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+                document.querySelector(".creator-main__step_quantity").classList.add('hidden')
+            }
+        })
     }
 
     if (e.target === document.getElementById('own-print-custom')) {
@@ -249,8 +288,14 @@ document.addEventListener('click', e => {
         addDescr('Artwork', newValue);
 
         // Putting the preview, title and size to the quantitys preview
-        document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'))
-        document.querySelector('.order-box__title').textContent = label.querySelector('.radio-box__label').textContent;
+        //document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'))
+        //document.querySelector('.order-box__title').textContent = label.querySelector('.radio-box__label').textContent;
+        
+        if (document.querySelectorAll('.order-box').length > 0) {
+            document.querySelectorAll('.order-box').forEach(el => {
+                el.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'))
+            })
+        }
 
         if (document.querySelector('.radio-size-input').checked) {
             document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
@@ -265,7 +310,6 @@ document.addEventListener('click', e => {
 
 
         if (document.querySelector('.radio-size-input').checked) {
-            addDescr('size', document.querySelector('.radio-size-p_current .radio-box__label').textContent);
             document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
             showOrderButton()
         } else {
@@ -277,10 +321,19 @@ document.addEventListener('click', e => {
         document.querySelector('.prod-preview__roll').classList.remove('active');
 
         document.getElementById('own-print-custom').value = '';
-        document.querySelectorAll('.radio-size-input').forEach(el => {
-            el.checked = false;
-        })
+        
         document.querySelector('.enter-size-gallery').classList.remove('opened')
+
+        
+        document.querySelectorAll('.order-box').forEach(el => {
+            el.remove();
+        })
+        document.querySelectorAll('.radio-size-p').forEach(el => {
+            el.classList.remove('radio-size-p_current');
+        })
+        document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+        document.querySelector(".creator-main__step_quantity").classList.add('hidden')
+        hideOrderButton()
     }
 
     if (e.target.closest('.radio-color')) {
@@ -295,13 +348,10 @@ document.addEventListener('click', e => {
     }
 
     if (e.target.closest('.radio-size-p')) {
-        document.querySelectorAll('.radio-size-p').forEach(el => {
-            el.classList.remove('radio-size-p_current')
-        })
         e.target.closest('.radio-size-p').classList.add('radio-size-p_current');
 
-        document.querySelector('.order-box__size').textContent = document.querySelector('.radio-size-p_current').querySelector('.radio-box__label').textContent;
-        document.querySelector('.order-box__size').textContent = e.target.closest('.radio-size-p').querySelector('.radio-box__label').textContent;
+        //document.querySelector('.order-box__size').textContent = document.querySelector('.radio-size-p_current').querySelector('.radio-box__label').textContent;
+        //document.querySelector('.order-box__size').textContent = e.target.closest('.radio-size-p').querySelector('.radio-box__label').textContent;
 
         document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
         document.querySelector('.creator-main__step_quantity').classList.remove('hidden')
@@ -315,8 +365,26 @@ document.addEventListener('click', e => {
         showOrderButton()
 
         document.querySelector('.size-check').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));
-        checkSizes()
-        enterSizes()
+
+        let points = [...document.querySelectorAll('.radio-size-p')]
+        let elPos = points.indexOf(e.target.closest('.radio-size-p'));
+        createNewOrder(`${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm`, elPos)
+
+        if (document.querySelector('.size-check').offsetWidth >= document.querySelector('.size-check').offsetHeight) {
+            document.querySelector('.size-check').style.width = `${e.target.closest('.radio-size-p').getAttribute('data-long-side-size')}px`
+            document.querySelector('.size-check').style.height = `auto`
+        } else {
+            document.querySelector('.size-check').style.width = `auto`
+            document.querySelector('.size-check').style.height = `${e.target.closest('.radio-size-p').getAttribute('data-long-side-size')}px`
+        }
+        document.querySelectorAll('.order-box')[document.querySelectorAll('.order-box').length - 1].querySelector('.order-box__size').textContent = `${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm`;    
+        updDimensions(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
+
+        checkSameOrderCount()
+        calcPrice()
+
+        calcTotalPrice()
+        editSizeEnter()
     }
 
     if (e.target.classList.contains('enter-size-gallery__button')) {
@@ -328,6 +396,10 @@ document.addEventListener('click', e => {
         showOrderButton()
         document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
         document.querySelector(".creator-main__step_quantity").classList.remove('hidden')
+    }
+
+    if (e.target.classList.contains('order-box__rm-btn')) {
+        removeOrder(e.target)
     }
 })
 
@@ -450,4 +522,128 @@ function clearFileInput(input, id) {
     newInput.setAttribute('accept', input.getAttribute('accept'))
     newInput.id = id;
     input.parentNode.replaceChild(newInput, input);
+}
+
+function createNewOrder(size, index) {
+    let newOrder = `
+        <div class="order-box" data-key="${index}">
+            <div class="order-box__preview">
+                <img src="${document.querySelector('.radio-print-p_current .radio-box__preview img').getAttribute('src')}" alt="">
+                <div class="order-box__overlay">
+                    <button class="order-box__rm-btn">
+                        <svg class="rm-icon" width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.81628 2.93878C7.23961 1.80925 8.3818 1 9.72442 1C11.0671 1 12.2093 1.80925 12.6326 2.93878" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M18.0612 4.87756H1" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M16.0535 14.4403C15.8777 17.0757 15.7898 18.3934 14.9308 19.1967C14.0719 20 12.7507 20 10.1085 20H9.34045C6.69819 20 5.37706 20 4.51808 19.1967C3.6591 18.3934 3.57121 17.0757 3.39546 14.4403L2.93872 7.59186M16.5101 7.59186L16.3115 10.5698" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M7.2041 9.9184L7.59186 14.9592" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M12.2449 9.9184L11.4694 14.9592" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <h3 class="order-box__title">${document.querySelector('.radio-print-p_current .radio-box__label').textContent}</h3>
+            <p class="order-box__size">${size}</p>
+            <div class="counter counter-quantity">
+                <button class="counter__button btn-minus">-</button>
+                <div class="counter__num">1</div>
+                <button class="counter__button btn-plus">+</button>
+            </div>
+
+            <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">Zł</span></div>    
+        </div>
+    `;
+
+    document.querySelector('.creator-main__step_quantity .counter-parent').insertAdjacentHTML('beforeend', newOrder);
+}
+
+function removeOrder(e) {
+    if (document.querySelectorAll('.radio-size-p_current').length > 0) {
+        checkSizes()
+    }
+
+    if (document.getElementById('artwork-n').checked) {
+        let elPos = e.closest('.order-box').getAttribute('data-key');
+        if (elPos != 'custom') {
+            document.querySelectorAll('.radio-size-p')[elPos].classList.remove('radio-size-p_current')
+        }
+    }
+    e.closest('.order-box').remove()
+
+    document.querySelectorAll('.radio-size-p').forEach(el => {
+        if (el.classList.contains('radio-size-p_current')) {
+            document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
+            document.querySelector('.creator-main__step_quantity').classList.remove('hidden')  
+            showOrderButton()      
+        }
+    })
+
+    if (document.getElementById('artwork-y').checked) {
+        document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
+            el.classList.remove('active')
+            el.style.display = 'none';
+        })
+
+
+        if (document.getElementById('own-print-custom').files[0].type != 'application/pdf') {
+            document.querySelector('.prod-preview').classList.remove('active');
+
+            document.querySelectorAll('.dragndrop__preview').forEach(el => {
+                el.classList.remove('active')
+                el.style.display = 'none';
+            })
+        }
+        if (document.getElementById('custom').checked) {
+            document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
+            document.querySelector('.creator-main__step_size').classList.add('hidden')
+            hideOrderButton() 
+        }
+    }
+    
+    //enterSizes()
+    calcPrice()
+    calcTotalPrice()
+    editSizeEnter()
+
+    if (document.querySelectorAll('.order-box').length > 0) {
+        document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
+        document.querySelector('.creator-main__step_quantity').classList.remove('hidden')
+        showOrderButton()   
+    } else {
+        document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current')
+        document.querySelector('.creator-main__step_quantity').classList.add('hidden')
+        hideOrderButton()    
+    }
+}
+
+function checkSameOrderCount() {
+    const orderBoxes = document.querySelectorAll('.order-box');
+
+    for (let i = 0; i < orderBoxes.length; i++) {
+        const el = orderBoxes[i];
+        const elSize = el.querySelector('.order-box__size');
+
+        for (let index = i; index < orderBoxes.length; index++) {
+            const elChild = orderBoxes[index];
+            const elChildSize = elChild.querySelector('.order-box__size');
+
+            if (elSize.textContent === elChildSize.textContent && i != index) {
+                elChild.remove();
+                el.querySelector('.counter__num').textContent = parseInt(el.querySelector('.counter__num').textContent) + 1;
+            }
+        }
+    }
+}
+
+function editSizeEnter() {
+    let sizeLine = '';
+    document.querySelectorAll('.order-box').forEach(el => {
+        sizeLine += `${el.querySelector('.order-box__size').textContent} (${el.querySelector('.counter__num').textContent})<br>`
+    })
+    addDescr('size', sizeLine);
+
+    document.querySelectorAll('.order-descr__value').forEach(el => {
+        if (el.textContent === '') {
+            el.closest('.order-descr__row').remove();
+        }
+    })
 }
