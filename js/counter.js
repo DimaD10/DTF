@@ -38,6 +38,5 @@ function calcPrice() {
             price = parseInt(el.querySelector('.counter-price__count').getAttribute('data-price-count'));
         }
         el.querySelector('.counter-price__count').textContent = price * parseInt(el.querySelector('.counter__num').textContent);
-        //document.querySelector('.total-bill__value-num').textContent = price * times;
     })
 }

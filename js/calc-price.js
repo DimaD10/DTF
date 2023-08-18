@@ -7,13 +7,6 @@ const pricePerPogon = 60;
 let printWidth = 40 + 1;
 let printHeight = 40 + 1;
 
-document.addEventListener('change', () => {
-    //updDimensions(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
-})
-document.addEventListener('click', () => {
-    //updDimensions(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
-})
-
 // FUNCTIONS
 function calculatePrintsPerMeter(printWidth, printHeight, pogonWidth, pogonHeight) {
     const horizontalPrints = Math.floor(pogonWidth / printWidth);

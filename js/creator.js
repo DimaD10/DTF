@@ -286,10 +286,6 @@ document.addEventListener('click', e => {
 
         let newValue = label.querySelector('.radio-box__label').textContent;
         addDescr('Artwork', newValue);
-
-        // Putting the preview, title and size to the quantitys preview
-        //document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'))
-        //document.querySelector('.order-box__title').textContent = label.querySelector('.radio-box__label').textContent;
         
         if (document.querySelectorAll('.order-box').length > 0) {
             document.querySelectorAll('.order-box').forEach(el => {
@@ -331,6 +327,10 @@ document.addEventListener('click', e => {
         document.querySelectorAll('.radio-size-p').forEach(el => {
             el.classList.remove('radio-size-p_current');
         })
+        document.querySelectorAll('.radio-size-input').forEach(el => {
+            el.checked = false;
+        })
+        document.querySelector('.size-list').classList.remove('opened');
         document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
         document.querySelector(".creator-main__step_quantity").classList.add('hidden')
         hideOrderButton()
@@ -599,7 +599,6 @@ function removeOrder(e) {
         }
     }
     
-    //enterSizes()
     calcPrice()
     calcTotalPrice()
     editSizeEnter()
