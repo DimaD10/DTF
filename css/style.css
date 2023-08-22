@@ -1203,6 +1203,8 @@ main {
       -ms-flex-pack: center;
           justify-content: center;
   width: 52px;
+  text-align: center;
+  font-size: 16px;
 }
 
 .radio-size {
@@ -1597,6 +1599,10 @@ main {
   opacity: 1;
 }
 
+#upload-by-link-p:checked ~ #custom-checkbox-p-l::after {
+  opacity: 1;
+}
+
 .size-check {
   position: fixed;
   top: -100%;
@@ -1606,4 +1612,15 @@ main {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  text-align: center;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.counter__num {
+  pointer-events: all !important;
 }

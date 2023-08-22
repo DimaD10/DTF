@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelector('.dragndrop__other-way').classList.remove('active') 
           document.querySelector('.dragndrop__other-way-paste').value = ''; 
 
-          let count = document.querySelector('.order-box .counter__num').textContent;
+          let count = document.querySelector('.order-box .counter__num').value;
 
           if (count > 0 && count <= 2) {
             document.querySelector('.counter-price__count').setAttribute('data-price-count', 50)
@@ -250,7 +250,7 @@ function updPreview(el) {
   document.querySelector('.dragndrop__other-way-paste').value = ''; 
 
 
-  let count = document.querySelector('.order-box .counter__num').textContent;
+  let count = document.querySelector('.order-box .counter__num').value;
 
   if (count > 0 && count <= 2) {
     document.querySelector('.counter-price__count').setAttribute('data-price-count', 50)
@@ -307,11 +307,11 @@ function cleanAndAddOrder() {
         <p class="order-box__size">56cm x 100cm</p>
         <div class="counter counter-quantity">
             <button class="counter__button btn-minus">-</button>
-            <div class="counter__num">1</div>
+            <input type="number" class="counter__num" value="1">
             <button class="counter__button btn-plus">+</button>
         </div>
 
-        <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">Zł</span></div>    
+        <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">zł</span></div>    
     </div>
   `;
 

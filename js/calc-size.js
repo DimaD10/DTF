@@ -6,7 +6,7 @@ document.addEventListener('click', e =>  {
         document.querySelector('.size-check').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));
 
         if (document.getElementById('artwork-n').checked) {
-            let longSide = parseInt(e.target.closest('.enter-size-gallery').querySelector('.counter__num').textContent);
+            let longSide = parseInt(e.target.closest('.enter-size-gallery').querySelector('.counter__num').value);
             let sameEl = '';
 
             document.querySelectorAll('.radio-size-p').forEach(el => {
@@ -41,8 +41,8 @@ document.addEventListener('click', e =>  {
         document.querySelector('.size-check').style.width = `auto`
         document.querySelector('.size-check').style.height = `auto`
 
-        document.querySelector('.size-check').style.width = `${document.querySelector('.enter-size-pieces__width .counter__num').textContent}px`
-        document.querySelector('.size-check').style.height = `${document.querySelector('.enter-size-pieces__height .counter__num').textContent}px`
+        document.querySelector('.size-check').style.width = `${document.querySelector('.enter-size-pieces__width .counter__num').value}px`
+        document.querySelector('.size-check').style.height = `${document.querySelector('.enter-size-pieces__height .counter__num').value}px`
 
         enterSizes()
         updDimensions(1)
@@ -59,11 +59,11 @@ document.addEventListener('click', e =>  {
 function checkSizes() {
     if (document.getElementById('cust').checked) {
         if (document.querySelector('.size-check').offsetWidth >= document.querySelector('.size-check').offsetHeight) {
-            document.querySelector('.size-check').style.width = `${document.querySelector('.enter-size-gallery .counter__num').textContent}px`
+            document.querySelector('.size-check').style.width = `${document.querySelector('.enter-size-gallery .counter__num').value}px`
             document.querySelector('.size-check').style.height = `auto`
         } else {
             document.querySelector('.size-check').style.width = `auto`
-            document.querySelector('.size-check').style.height = `${document.querySelector('.enter-size-gallery .counter__num').textContent}px`
+            document.querySelector('.size-check').style.height = `${document.querySelector('.enter-size-gallery .counter__num').value}px`
         }
     } else if (document.getElementById('rec').checked) {
         if (document.querySelector('.size-check').offsetWidth >= document.querySelector('.size-check').offsetHeight) {

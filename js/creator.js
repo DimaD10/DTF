@@ -73,7 +73,7 @@ document.addEventListener('change', e => {
             //document.querySelector(".creator-main__step_quantity").classList.add('hidden')
         } else {
             document.querySelector('.size-list').classList.remove('opened')
-            showOrderButton()
+            //showOrderButton()
             
             if (document.getElementById('artwork-n').checked) {
                 document.querySelector('.enter-size-gallery').classList.add('opened');
@@ -125,17 +125,10 @@ document.addEventListener('change', e => {
     }
 
     if (e.target === document.getElementById('artwork-n')) {
-        if (Array.from(document.querySelectorAll('.radio-print-p')).some(element => element.classList.contains('radio-print-p_current'))) {
-            document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current')
-            document.querySelector(".creator-main__step_size").classList.remove('hidden')
-            document.querySelector(".creator-main__step_color").classList.add('creator-main__step_current')
-            document.querySelector(".creator-main__step_color").classList.remove('hidden')
-        } else {
-            document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
-            document.querySelector(".creator-main__step_size").classList.add('hidden')
-            document.querySelector(".creator-main__step_color").classList.remove('creator-main__step_current')
-            document.querySelector(".creator-main__step_color").classList.add('hidden')
-        }
+        document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
+        document.querySelector(".creator-main__step_size").classList.add('hidden')
+        document.querySelector(".creator-main__step_color").classList.remove('creator-main__step_current')
+        document.querySelector(".creator-main__step_color").classList.add('hidden')
         document.querySelectorAll('.upload-input').forEach(el => {
             el.checked = false;
         })
@@ -167,27 +160,22 @@ document.addEventListener('change', e => {
 
         document.getElementById('cust').checked = false;
 
-        let gActive = false
-        document.querySelectorAll('.radio-print-p').forEach(el => {
-            if (el.classList.contains('radio-print-p_current')) {
-                gActive = true;
-            }
-        })
-        if (gActive) {
-            document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current')
-            document.querySelector(".creator-main__step_quantity").classList.remove('hidden')
-        } else {
-            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current')
-            document.querySelector(".creator-main__step_quantity").classList.add('hidden')  
-            if (document.querySelectorAll('.order-box').length > 0) {
-                document.querySelectorAll('.order-box').forEach(el => {
-                    el.remove()
-                })
-            }
-            document.querySelectorAll('.radio-size-p').forEach(el => {
-                el.classList.remove('radio-size-p_current')
+        document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current')
+        document.querySelector(".creator-main__step_quantity").classList.add('hidden')  
+        if (document.querySelectorAll('.order-box').length > 0) {
+            document.querySelectorAll('.order-box').forEach(el => {
+                el.remove()
             })
         }
+        document.querySelectorAll('.radio-size-p').forEach(el => {
+            el.classList.remove('radio-size-p_current')
+        })
+        document.querySelectorAll('.radio-print-p').forEach(el => {
+            el.classList.remove('radio-print-p_current')
+        })
+        hideOrderButton()
+        addDescr('artwork', '')
+        addDescr('size', '')
     }
 
     if (e.target === document.getElementById('artwork-y')) {
@@ -199,6 +187,9 @@ document.addEventListener('change', e => {
                 document.querySelector(".creator-main__step_quantity").classList.add('hidden')
             }
         })
+        hideOrderButton()
+        addDescr('artwork', '')
+        addDescr('size', '')
     }
 
     if (e.target === document.getElementById('own-print-custom')) {
@@ -225,7 +216,7 @@ document.addEventListener('change', e => {
         showOrderButton()
     }
 
-    if (e.target.matches('input#upload-by-link')) {
+    if (e.target.matches('input#upload-by-link') || e.target.matches('input#upload-by-link-p')) {
         if (e.target.checked) {
             e.target.closest('.dragndrop__other-way').classList.add('active')
         } else {
@@ -234,23 +225,25 @@ document.addEventListener('change', e => {
     }
 })
 
-document.querySelector('.dragndrop__other-way-paste').addEventListener('input', e => {
-    if (e.target.value !== '') {
-        document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
-        document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
-        showOrderButton();
-        document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
-
-        document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
-            el.classList.remove('active')
-            el.style.display = 'none';
-        })
-    } else {
-        document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
-        document.querySelector('.creator-main__step_quantity').classList.add('hidden');
-        hideOrderButton();
-    }
-});
+document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
+    el.addEventListener('input', e => {
+        if (e.target.value !== '') {
+            document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+            document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
+            showOrderButton();
+            document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
+    
+            document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
+                el.classList.remove('active')
+                el.style.display = 'none';
+            })
+        } else {
+            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_quantity').classList.add('hidden');
+            hideOrderButton();
+        }
+    });
+})
 
 
 document.addEventListener('click', e => {
@@ -378,7 +371,7 @@ document.addEventListener('click', e => {
             document.querySelector('.size-check').style.height = `${e.target.closest('.radio-size-p').getAttribute('data-long-side-size')}px`
         }
         document.querySelectorAll('.order-box')[document.querySelectorAll('.order-box').length - 1].querySelector('.order-box__size').textContent = `${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm`;    
-        updDimensions(document.querySelector('.creator-main__step_quantity .counter__num').textContent)
+        updDimensions(document.querySelector('.creator-main__step_quantity .counter__num').value)
 
         checkSameOrderCount()
         calcPrice()
@@ -545,11 +538,11 @@ function createNewOrder(size, index) {
             <p class="order-box__size">${size}</p>
             <div class="counter counter-quantity">
                 <button class="counter__button btn-minus">-</button>
-                <div class="counter__num">1</div>
+                <input type="number" class="counter__num" value="1">
                 <button class="counter__button btn-plus">+</button>
             </div>
 
-            <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">Zł</span></div>    
+            <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">zł</span></div>    
         </div>
     `;
 
@@ -627,7 +620,7 @@ function checkSameOrderCount() {
 
             if (elSize.textContent === elChildSize.textContent && i != index) {
                 elChild.remove();
-                el.querySelector('.counter__num').textContent = parseInt(el.querySelector('.counter__num').textContent) + 1;
+                el.querySelector('.counter__num').value = parseInt(el.querySelector('.counter__num').value) + 1;
             }
         }
     }
@@ -636,7 +629,7 @@ function checkSameOrderCount() {
 function editSizeEnter() {
     let sizeLine = '';
     document.querySelectorAll('.order-box').forEach(el => {
-        sizeLine += `${el.querySelector('.order-box__size').textContent} (${el.querySelector('.counter__num').textContent})<br>`
+        sizeLine += `${el.querySelector('.order-box__size').textContent} (${el.querySelector('.counter__num').value})<br>`
     })
     addDescr('size', sizeLine);
 

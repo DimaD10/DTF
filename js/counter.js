@@ -5,15 +5,15 @@ document.addEventListener('click', e => {
         let num = e.target.closest('.counter').querySelector('.counter__num');
 
         if (e.target.textContent === '-') {
-            if (num.textContent >= 2) {
-                num.textContent--
-                updDimensions(num.textContent)
+            if (num.value >= 2) {
+                num.value = num.value - 1;
+                updDimensions(num.value)
             } else {
                 num.disabled;
             }
         } else if (e.target.textContent === '+') {
-            num.textContent++ 
-            updDimensions(num.textContent)
+            num.value++ 
+            updDimensions(num.value)
         }
 
         if (e.target.closest('.counter-quantity')) {
@@ -24,7 +24,27 @@ document.addEventListener('click', e => {
     }
 })
 
+document.addEventListener('input', e => {
+    if (e.target.classList.contains('counter__num') && e.target.closest('.creator-main__step_quantity')) {
+        if (e.target.value === '' || /^0*$/.test(e.target.value)) {
+            e.target.value = 0;
+            hideOrderButton()
+        } else {
+            showOrderButton()
+        }
+        calcPrice();
+        calcTotalPrice();
+    }
 
+    if (e.target.classList.contains('counter__num') && e.target.closest('.creator-main__step_size')) {
+        if (e.target.value === '' || /^0*$/.test(e.target.value)) {
+            e.target.value = 1;
+            hideOrderButton()
+        } else {
+            showOrderButton()
+        }
+    }
+})
 
 // FUNCTIONS
 
@@ -37,6 +57,6 @@ function calcPrice() {
         } else {
             price = parseInt(el.querySelector('.counter-price__count').getAttribute('data-price-count'));
         }
-        el.querySelector('.counter-price__count').textContent = price * parseInt(el.querySelector('.counter__num').textContent);
+        el.querySelector('.counter-price__count').textContent = price * parseInt(el.querySelector('.counter__num').value);
     })
 }

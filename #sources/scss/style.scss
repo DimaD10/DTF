@@ -868,6 +868,8 @@
         align-items: center;
         justify-content: center;
         width: 52px;
+        text-align: center;
+        font-size: 16px;
     }
 }
 
@@ -1224,6 +1226,11 @@
         opacity: 1;
     }
 }
+#upload-by-link-p:checked ~ #custom-checkbox-p-l {
+    &::after {
+        opacity: 1;
+    }
+}
 
 
 .size-check {
@@ -1232,4 +1239,15 @@
     opacity: 0;
     pointer-events: none;
     user-select: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    text-align: center;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.counter__num {
+    pointer-events: all !important;
 }

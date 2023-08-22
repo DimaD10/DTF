@@ -36,11 +36,11 @@ function updDimensions(count) {
                 document.querySelector('.counter-price__count').setAttribute('data-price-count', printPrice.toFixed(2))
                 calcPrice()
             } else {                
-                if (count > 0 && count <= 2) {
+                if (count > 0 && count < 2) {
                     document.querySelector('.counter-price__count').setAttribute('data-price-count', 50)
-                } else if (count > 2 && count <= 10) {
+                } else if (count >= 2 && count <= 10) {
                     document.querySelector('.counter-price__count').setAttribute('data-price-count', 45)
-                } else if (count > 10 && count < 50) {
+                } else if (count > 10 && count <= 50) {
                     document.querySelector('.counter-price__count').setAttribute('data-price-count', 43)
                 } else {
                     document.querySelector('.counter-price__count').setAttribute('data-price-count', 41)
