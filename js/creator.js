@@ -108,8 +108,15 @@ document.addEventListener('change', e => {
         })
         hideOrderButton()
 
-        //clearFileInput(document.getElementById('own-print-design'), 'own-print-design')
-        //clearFileInput(document.getElementById('own-print-custom'), 'own-print-custom')
+        document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
+            el.value = '';
+        })
+        document.querySelectorAll('.checkbox-input').forEach(el => {
+            el.checked = false;
+        })
+        document.querySelectorAll('.dragndrop__other-way').forEach(el => {
+            el.classList.remove('active')
+        })
     }
 
     if (e.target.matches('input[data-hide-frames]:checked')) {
@@ -125,6 +132,7 @@ document.addEventListener('change', e => {
     }
 
     if (e.target === document.getElementById('artwork-n')) {
+        document.querySelector('.creator-main__message-quantity').classList.remove('active');
         document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
         document.querySelector(".creator-main__step_size").classList.add('hidden')
         document.querySelector(".creator-main__step_color").classList.remove('creator-main__step_current')
@@ -221,6 +229,10 @@ document.addEventListener('change', e => {
             e.target.closest('.dragndrop__other-way').classList.add('active')
         } else {
             e.target.closest('.dragndrop__other-way').classList.remove('active')  
+            e.target.closest('.dragndrop__other-way').querySelector('.dragndrop__other-way-paste').value = '';
+
+            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_quantity').classList.add('hidden');
         }
     }
 })
@@ -228,19 +240,52 @@ document.addEventListener('change', e => {
 document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
     el.addEventListener('input', e => {
         if (e.target.value !== '') {
-            document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
-            document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
-            showOrderButton();
+            cleanAndAddOrder()
+            document.querySelector('.size-list').classList.remove('opened')
+
+            if (document.getElementById('design').checked) {
+                document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
+                showOrderButton();    
+
+                document.querySelectorAll('.radio-size-input').forEach(el => {
+                    el.checked = false;
+                })
+                document.querySelector('.enter-size-pieces').classList.remove('opened')
+                document.querySelector('.enter-size-gallery').classList.remove('opened')
+
+                document.querySelector('.creator-main__message-quantity').classList.add('active');
+
+                addDescr('size', '57cm x 100cm (1)');
+            } else if (document.getElementById('custom').checked) {
+                document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current');
+                document.querySelector('.creator-main__step_size').classList.remove('hidden');
+                document.getElementById('cust').checked = true;
+                document.querySelector('.enter-size-pieces').classList.add('opened')
+                document.querySelector('.enter-size-gallery').classList.remove('opened')
+
+                document.querySelector('.creator-main__message-quantity').classList.remove('active');
+            }
             document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
     
             document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
                 el.classList.remove('active')
                 el.style.display = 'none';
             })
+
+            addDescr('Artwork', 'Own by link')
         } else {
             document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
             document.querySelector('.creator-main__step_quantity').classList.add('hidden');
             hideOrderButton();
+
+            document.querySelectorAll('.radio-size-input').forEach(el => {
+                el.checked = false;
+            })
+            document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_size').classList.add('hidden');
+            document.querySelector('.enter-size-pieces').classList.remove('opened')
+            document.querySelector('.enter-size-gallery').classList.remove('opened')
         }
     });
 })
