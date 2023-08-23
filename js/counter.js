@@ -24,6 +24,8 @@ document.addEventListener('click', e => {
         }
 
         if (e.target.closest('.creator-main__step_size')) {
+            checkSizes();
+            updSizes()
             callWarn()
         }
     }
@@ -53,6 +55,8 @@ document.addEventListener('input', e => {
                 e.target.value = e.target.value.slice(1);
             }
         }
+        checkSizes();
+        updSizes()
         callWarn()
     }
 })

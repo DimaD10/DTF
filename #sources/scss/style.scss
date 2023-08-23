@@ -1235,10 +1235,11 @@
 
 .size-check {
     position: fixed;
-    top: -100%;
-    opacity: 0;
+    //top: -100%;
+    //opacity: 0;
     pointer-events: none;
     user-select: none;
+    width: 40px;
 }
 
 input[type="number"]::-webkit-outer-spin-button,

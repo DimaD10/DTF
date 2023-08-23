@@ -1605,13 +1605,12 @@ main {
 
 .size-check {
   position: fixed;
-  top: -100%;
-  opacity: 0;
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  width: 40px;
 }
 
 input[type=number]::-webkit-outer-spin-button,

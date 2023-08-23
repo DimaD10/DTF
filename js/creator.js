@@ -732,6 +732,7 @@ function callWarn() {
     let longSideG;
     let shortSideG;
     let equal = false;
+    let equalG = false;
     let piecesNums = document.querySelector('.enter-size-pieces').querySelectorAll('.counter__num');
 
     for (let i = 0; i < piecesNums.length; i++) {
@@ -755,47 +756,110 @@ function callWarn() {
         equal = false;
     }
 
-    if (equal != true) {
-        if (longSideSize > 99 || shortSideSize > 56) {
-            hideOrderButton()
-            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
-            document.querySelector('.creator-main__step_quantity').classList.add('hidden');
-
-            document.querySelector('.enter-size-pieces__button').style.display = 'none'
-            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
-            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
-        } else {
-            if (document.querySelectorAll('.order-box').length > 0) {
-                document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
-                document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
-                showOrderButton()    
-            }
-            
-            document.querySelector('.enter-size-pieces__button').style.display = 'flex'
-            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
-            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
-        }
-    } else {
-        if (longSideSize > 56 && shortSideSize > 56) {
-            hideOrderButton()
-            if (document.querySelectorAll('.order-box').length > 0) {
+    if (document.querySelector('.enter-size-pieces').classList.contains('opened')) {
+        if (equal != true) {
+            if (longSideSize > 99 || shortSideSize > 56) {
+                hideOrderButton()
                 document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
-                document.querySelector('.creator-main__step_quantity').classList.add('hidden');    
+                document.querySelector('.creator-main__step_quantity').classList.add('hidden');
+    
+                document.querySelector('.enter-size-pieces__button').style.display = 'none'
+                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
+                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
+            } else {
+                if (document.querySelectorAll('.order-box').length > 0) {
+                    document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                    document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
+                    showOrderButton()    
+                }
+                
+                document.querySelector('.enter-size-pieces__button').style.display = 'flex'
+                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
+                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
             }
-
-            document.querySelector('.enter-size-pieces__button').style.display = 'none'
-            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
-            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
         } else {
-            if (document.querySelectorAll('.order-box').length > 0) {
-                showOrderButton()
-                document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
-                document.querySelector('.creator-main__step_quantity').classList.remove('hidden');        
+            if (longSideSize > 56 && shortSideSize > 56) {
+                hideOrderButton()
+                if (document.querySelectorAll('.order-box').length > 0) {
+                    document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+                    document.querySelector('.creator-main__step_quantity').classList.add('hidden');    
+                }
+    
+                document.querySelector('.enter-size-pieces__button').style.display = 'none'
+                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
+                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
+            } else {
+                if (document.querySelectorAll('.order-box').length > 0) {
+                    showOrderButton()
+                    document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                    document.querySelector('.creator-main__step_quantity').classList.remove('hidden');        
+                }
+    
+                document.querySelector('.enter-size-pieces__button').style.display = 'flex'
+                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
+                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
             }
-
-            document.querySelector('.enter-size-pieces__button').style.display = 'flex'
-            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
-            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
         }
+    }
+
+
+    if (document.querySelector('.size-check').offsetWidth > document.querySelector('.size-check').offsetHeight) {
+        longSideG = document.querySelector('.size-check').offsetWidth;
+        shortSideG = document.querySelector('.size-check').offsetHeight;
+    } else if (document.querySelector('.size-check').offsetWidth = document.querySelector('.size-check').offsetHeight) {
+        equalG = true;
+        longSideG = document.querySelector('.size-check').offsetWidth;
+        shortSideG = document.querySelector('.size-check').offsetHeight;
+    } else {
+        longSideG = document.querySelector('.size-check').offsetHeight;
+        shortSideG = document.querySelector('.size-check').offsetWidth;
+    }
+
+    console.log(longSideG, shortSideG);
+
+    if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
+        if (equalG != true) {
+            if (longSideG > 99 || shortSideG > 56) {
+                hideOrderButton()
+                document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+                document.querySelector('.creator-main__step_quantity').classList.add('hidden');
+    
+                document.querySelector('.enter-size-gallery__button').style.display = 'none'
+                document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'none';
+                document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'block';
+            } else {
+                if (document.querySelectorAll('.order-box').length > 0) {
+                    document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                    document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
+                    showOrderButton()    
+                }
+                
+                document.querySelector('.enter-size-gallery__button').style.display = 'flex'
+                document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'block';
+                document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'none';
+            }
+        } else {
+            if (longSideG > 56 && shortSideG > 56) {
+                hideOrderButton()
+                if (document.querySelectorAll('.order-box').length > 0) {
+                    document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+                    document.querySelector('.creator-main__step_quantity').classList.add('hidden');    
+                }
+    
+                document.querySelector('.enter-size-gallery__button').style.display = 'none'
+                document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'none';
+                document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'block';
+            } else {
+                if (document.querySelectorAll('.order-box').length > 0) {
+                    showOrderButton()
+                    document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                    document.querySelector('.creator-main__step_quantity').classList.remove('hidden');        
+                }
+    
+                document.querySelector('.enter-size-gallery__button').style.display = 'flex'
+                document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'block';
+                document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'none';
+            }
+        }    
     }
 }

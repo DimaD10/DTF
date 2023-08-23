@@ -75,7 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
               document.querySelector('.prod-preview__roll').classList.remove('active');
               document.querySelector('.prod-preview').classList.add('active');
               document.querySelector('.prod-preview__print img').src = window.URL.createObjectURL(files[0]); 
-              document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));        
+              document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));
+              document.querySelector('.size-check').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));  
+              checkSizes();
+              updSizes()
+              callWarn()     
             }
         
             if (document.getElementById('custom').checked) {
@@ -138,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             document.querySelector('.counter-price__count').setAttribute('data-price-count', 41)
           }
-        
+
           calcPrice()
           calcTotalPrice()
           editSizeEnter()
@@ -202,7 +206,11 @@ function updPreview(el) {
       document.querySelector('.prod-preview__roll').classList.remove('active');
       document.querySelector('.prod-preview').classList.add('active');
       document.querySelector('.prod-preview__print img').src = window.URL.createObjectURL(el.target.files[0]);
-      document.querySelector('.order-box__preview img').setAttribute('src', window.URL.createObjectURL(el.target.files[0]));        
+      document.querySelector('.order-box__preview img').setAttribute('src', window.URL.createObjectURL(el.target.files[0])); 
+      document.querySelector('.size-check').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));      
+      checkSizes();
+      updSizes()
+      callWarn()
     }
 
     if (document.getElementById('custom').checked) {
