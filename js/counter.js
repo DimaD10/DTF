@@ -22,6 +22,10 @@ document.addEventListener('click', e => {
             calcTotalPrice()
             editSizeEnter()
         }
+
+        if (e.target.closest('.creator-main__step_size')) {
+            callWarn()
+        }
     }
 })
 
@@ -49,6 +53,7 @@ document.addEventListener('input', e => {
                 e.target.value = e.target.value.slice(1);
             }
         }
+        callWarn()
     }
 })
 

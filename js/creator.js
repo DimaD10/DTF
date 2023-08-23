@@ -261,10 +261,6 @@ document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
                 el.style.display = 'none';
                 el.classList.remove('active');
             })
-            document.querySelector('.prod-preview__cloth').classList.remove('active');
-            document.querySelector('.prod-preview__roll').classList.add('active');
-            document.querySelector('.prod-preview').classList.remove('active');
-            document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))
       
             hideOrderButton();
             calcPrice()
@@ -302,6 +298,12 @@ document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
                 document.querySelector('.enter-size-gallery').classList.remove('opened')
 
                 document.querySelector('.creator-main__message-quantity').classList.remove('active');
+
+                hideOrderButton()
+                document.querySelector('.prod-preview__cloth').classList.remove('active');
+                document.querySelector('.prod-preview__roll').classList.add('active');
+                document.querySelector('.prod-preview').classList.remove('active');
+                //document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))    
             }
     
             document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
@@ -722,4 +724,78 @@ function editSizeEnter() {
             el.closest('.order-descr__row').remove();
         }
     })
+}
+
+function callWarn() {
+    let longSideSize;
+    let shortSideSize;
+    let longSideG;
+    let shortSideG;
+    let equal = false;
+    let piecesNums = document.querySelector('.enter-size-pieces').querySelectorAll('.counter__num');
+
+    for (let i = 0; i < piecesNums.length; i++) {
+        const el = piecesNums[i];
+        
+        
+        if (i > 0) {
+            if (parseInt(el.value) >= parseInt(piecesNums[i - 1].value)) {
+                longSideSize = parseInt(el.value)
+                shortSideSize = parseInt(piecesNums[i - 1].value)
+            }
+        } else {
+            longSideSize = parseInt(el.value)
+            shortSideSize = parseInt(piecesNums[i + 1].value)
+        }
+    }
+
+    if (shortSideSize === longSideSize) {
+        equal = true;
+    } else  {
+        equal = false;
+    }
+
+    if (equal != true) {
+        if (longSideSize > 99 || shortSideSize > 56) {
+            hideOrderButton()
+            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_quantity').classList.add('hidden');
+
+            document.querySelector('.enter-size-pieces__button').style.display = 'none'
+            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
+            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
+        } else {
+            if (document.querySelectorAll('.order-box').length > 0) {
+                document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
+                showOrderButton()    
+            }
+            
+            document.querySelector('.enter-size-pieces__button').style.display = 'flex'
+            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
+            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
+        }
+    } else {
+        if (longSideSize > 56 && shortSideSize > 56) {
+            hideOrderButton()
+            if (document.querySelectorAll('.order-box').length > 0) {
+                document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+                document.querySelector('.creator-main__step_quantity').classList.add('hidden');    
+            }
+
+            document.querySelector('.enter-size-pieces__button').style.display = 'none'
+            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
+            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
+        } else {
+            if (document.querySelectorAll('.order-box').length > 0) {
+                showOrderButton()
+                document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                document.querySelector('.creator-main__step_quantity').classList.remove('hidden');        
+            }
+
+            document.querySelector('.enter-size-pieces__button').style.display = 'flex'
+            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
+            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
+        }
+    }
 }
