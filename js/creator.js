@@ -188,6 +188,7 @@ document.addEventListener('change', e => {
         hideOrderButton()
         addDescr('artwork', '')
         addDescr('size', '')
+        document.querySelector('.prod-preview').classList.remove('active');
     }
 
     if (e.target === document.getElementById('artwork-y')) {
