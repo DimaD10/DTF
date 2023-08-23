@@ -38,13 +38,60 @@ document.addEventListener('click', e =>  {
     }
 
     if (e.target.classList.contains('enter-size-pieces__button')) {
+        let newOrder = `
+            <div class="order-box">
+                <div class="order-box__preview">
+                    <img src="" alt="">
+                    <div class="order-box__overlay">
+                        <button class="order-box__rm-btn">
+                            <svg class="rm-icon" width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.81628 2.93878C7.23961 1.80925 8.3818 1 9.72442 1C11.0671 1 12.2093 1.80925 12.6326 2.93878" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M18.0612 4.87756H1" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M16.0535 14.4403C15.8777 17.0757 15.7898 18.3934 14.9308 19.1967C14.0719 20 12.7507 20 10.1085 20H9.34045C6.69819 20 5.37706 20 4.51808 19.1967C3.6591 18.3934 3.57121 17.0757 3.39546 14.4403L2.93872 7.59186M16.5101 7.59186L16.3115 10.5698" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M7.2041 9.9184L7.59186 14.9592" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M12.2449 9.9184L11.4694 14.9592" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="order-box__title"></h3>
+                <p class="order-box__size"></p>
+                <div class="counter counter-quantity">
+                    <button class="counter__button btn-minus">-</button>
+                    <input type="number" class="counter__num" value="1">
+                    <button class="counter__button btn-plus">+</button>
+                </div>
+
+                <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">zł</span></div>    
+            </div>
+        `;
+
+        document.querySelector('.creator-main__step_quantity .counter-parent').insertAdjacentHTML('beforeend', newOrder);
+
+        if (document.getElementById('upload-by-link-p').checked) {
+            document.querySelectorAll('.order-box')[document.querySelectorAll('.order-box').length - 1].querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
+            addDescr('artwork', 'own by link');
+            document.querySelectorAll('.order-box')[document.querySelectorAll('.order-box').length - 1].querySelector('.order-box__title').textContent = 'Own file by link';
+        } else {
+            addDescr('artwork', 'own file');
+            document.querySelector('.order-box__title').textContent = 'Own file';
+
+            if (document.getElementById('own-print-custom').files[0].type === 'application/pdf') {
+                document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
+            } else {
+                document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__print img').getAttribute('src'));
+            }
+        }
+
         document.querySelector('.size-check').style.width = `auto`
         document.querySelector('.size-check').style.height = `auto`
 
         document.querySelector('.size-check').style.width = `${document.querySelector('.enter-size-pieces__width .counter__num').value}px`
         document.querySelector('.size-check').style.height = `${document.querySelector('.enter-size-pieces__height .counter__num').value}px`
 
-        enterSizes()
+        document.querySelectorAll('.order-box')[document.querySelectorAll('.order-box').length - 1].querySelector('.order-box__size').textContent = `${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm`;   
+
+        updSizes()
         updDimensions(1)
         calcPrice()
 

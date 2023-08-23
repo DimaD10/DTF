@@ -117,6 +117,10 @@ document.addEventListener('change', e => {
         document.querySelectorAll('.dragndrop__other-way').forEach(el => {
             el.classList.remove('active')
         })
+
+        document.querySelectorAll('.order-box').forEach(el => {
+            el.remove();
+        })
     }
 
     if (e.target.matches('input[data-hide-frames]:checked')) {
@@ -240,10 +244,10 @@ document.addEventListener('change', e => {
 document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
     el.addEventListener('input', e => {
         if (e.target.value !== '') {
-            cleanAndAddOrder()
             document.querySelector('.size-list').classList.remove('opened')
 
             if (document.getElementById('design').checked) {
+                cleanAndAddOrder()
                 document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
                 document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
                 showOrderButton();    
@@ -256,8 +260,15 @@ document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
 
                 document.querySelector('.creator-main__message-quantity').classList.add('active');
 
+                document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
+
                 addDescr('size', '57cm x 100cm (1)');
+                document.querySelector('.counter-price__count').setAttribute('data-price-count', 50)
+                calcPrice();
+                calcTotalPrice();
+                editSizeEnter()
             } else if (document.getElementById('custom').checked) {
+            
                 document.querySelector(".creator-main__step_size").classList.add('creator-main__step_current');
                 document.querySelector('.creator-main__step_size').classList.remove('hidden');
                 document.getElementById('cust').checked = true;
@@ -266,7 +277,6 @@ document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
 
                 document.querySelector('.creator-main__message-quantity').classList.remove('active');
             }
-            document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
     
             document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
                 el.classList.remove('active')
@@ -620,17 +630,20 @@ function removeOrder(e) {
             el.classList.remove('active')
             el.style.display = 'none';
         })
-
-
-        if (document.getElementById('own-print-custom').files[0].type != 'application/pdf') {
-            document.querySelector('.prod-preview').classList.remove('active');
-
-            document.querySelectorAll('.dragndrop__preview').forEach(el => {
-                el.classList.remove('active')
-                el.style.display = 'none';
-            })
+        if (!document.getElementById('upload-by-link-p').checked && !document.getElementById('upload-by-link').checked) {
+            if (document.querySelectorAll('.order-box').length > 0) {
+                if (document.getElementById('own-print-custom').files[0].type != 'application/pdf') {
+                    document.querySelector('.prod-preview').classList.remove('active');
+        
+                    document.querySelectorAll('.dragndrop__preview').forEach(el => {
+                        el.classList.remove('active')
+                        el.style.display = 'none';
+                    })
+                }
+            }
         }
-        if (document.getElementById('custom').checked) {
+
+        if (document.getElementById('custom').checked && document.querySelectorAll('.order-box').length === 0) {
             document.querySelector(".creator-main__step_size").classList.remove('creator-main__step_current')
             document.querySelector('.creator-main__step_size').classList.add('hidden')
             hideOrderButton() 

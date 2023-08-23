@@ -304,7 +304,7 @@ function cleanAndAddOrder() {
             </div>
         </div>
         <h3 class="order-box__title">Own</h3>
-        <p class="order-box__size">56cm x 100cm</p>
+        <p class="order-box__size">57cm x 100cm</p>
         <div class="counter counter-quantity">
             <button class="counter__button btn-minus">-</button>
             <input type="number" class="counter__num" value="1">

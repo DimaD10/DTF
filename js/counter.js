@@ -14,6 +14,7 @@ document.addEventListener('click', e => {
         } else if (e.target.textContent === '+') {
             num.value++ 
             updDimensions(num.value)
+            //showOrderButton()
         }
 
         if (e.target.closest('.counter-quantity')) {
@@ -30,18 +31,23 @@ document.addEventListener('input', e => {
             e.target.value = 0;
             hideOrderButton()
         } else {
+            if (e.target.value[0] === "0" && e.target.value > 0) {
+                e.target.value = e.target.value.slice(1);
+            }
             showOrderButton()
         }
         calcPrice();
         calcTotalPrice();
+        editSizeEnter()
     }
 
     if (e.target.classList.contains('counter__num') && e.target.closest('.creator-main__step_size')) {
         if (e.target.value === '' || /^0*$/.test(e.target.value)) {
             e.target.value = 1;
-            hideOrderButton()
         } else {
-            showOrderButton()
+            if (e.target.value[0] === "0" && e.target.value > 0) {
+                e.target.value = e.target.value.slice(1);
+            }
         }
     }
 })
