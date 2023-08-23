@@ -65,8 +65,28 @@ document.addEventListener('click', e =>  {
                 <div class="counter-price"><span class="counter-price__count" data-price-count="0" data-digits-counter="400">0</span><span class="currency">zł</span></div>    
             </div>
         `;
+        // Catching same sizes
+        let ourDemensions = `${document.querySelector('.enter-size-pieces__width .counter__num').value}cm x ${document.querySelector('.enter-size-pieces__height .counter__num').value}cm`;
+        let sameEl = '';
 
-        document.querySelector('.creator-main__step_quantity .counter-parent').insertAdjacentHTML('beforeend', newOrder);
+        document.querySelectorAll('.order-box').forEach(el => {
+            if (el.querySelector('.order-box__size').textContent === ourDemensions) {
+                sameEl = el;
+            }
+        })
+
+        if (sameEl != '') {
+            let points = [...document.querySelectorAll('.radio-size-p')]
+            let elPos = points.indexOf(sameEl);
+            console.log(false);
+            console.log(sameEl);
+            sameEl.querySelector('.counter__num').value = parseInt(sameEl.querySelector('.counter__num').value) + 1;
+        } else {
+            console.log(true);
+            document.querySelector('.creator-main__step_quantity .counter-parent').insertAdjacentHTML('beforeend', newOrder);
+        }
+        /* ------------------------------ */
+
 
         if (document.getElementById('upload-by-link-p').checked) {
             document.querySelectorAll('.order-box')[document.querySelectorAll('.order-box').length - 1].querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'));
