@@ -244,6 +244,31 @@ document.addEventListener('change', e => {
 document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
     el.addEventListener('input', e => {
         if (e.target.value !== '') {
+            document.querySelectorAll('.order-box').forEach(el => {
+                el.remove()
+            })
+            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_quantity').classList.add('hidden');
+            document.querySelector(".creator-main__step_color").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_color').classList.add('hidden');
+
+            document.querySelectorAll('.dragndrop__pdf-label').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            })
+            document.querySelectorAll('.dragndrop__preview').forEach(el => {
+                el.style.display = 'none';
+                el.classList.remove('active');
+            })
+            document.querySelector('.prod-preview__cloth').classList.remove('active');
+            document.querySelector('.prod-preview__roll').classList.add('active');
+            document.querySelector('.prod-preview').classList.remove('active');
+            document.querySelector('.order-box__preview img').setAttribute('src', document.querySelector('.prod-preview__roll').getAttribute('src'))
+      
+            hideOrderButton();
+            calcPrice()
+            calcTotalPrice()
+
             document.querySelector('.size-list').classList.remove('opened')
 
             if (document.getElementById('design').checked) {
