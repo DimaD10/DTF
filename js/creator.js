@@ -95,6 +95,10 @@ document.addEventListener('change', e => {
                 hideOrderButton()
                 document.querySelector('.enter-size-pieces').classList.add('opened')
             }
+
+            checkSizes();
+            updSizes()
+            callWarn()
         }
     }
 
@@ -328,6 +332,12 @@ document.querySelectorAll('.dragndrop__other-way-paste').forEach(el => {
     });
 })
 
+document.getElementById('own-print-custom').addEventListener('change', e => {
+    checkSizes();
+    updSizes()
+    callWarn()
+})
+
 
 document.addEventListener('click', e => {
     if (e.target.closest('.radio-print-p')) {
@@ -410,6 +420,7 @@ document.addEventListener('click', e => {
         document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
         document.querySelector(".creator-main__step_quantity").classList.add('hidden')
         hideOrderButton()
+        document.querySelector('.size-check').setAttribute('src', document.querySelector('.radio-print-p_current .radio-box__preview img').getAttribute('src'));  
     }
 
     if (e.target.closest('.radio-color')) {
@@ -421,6 +432,10 @@ document.addEventListener('click', e => {
         let currentColor = e.target.closest('.radio-color').getAttribute('data-color');
 
         colorCloth.style.fill = currentColor;
+
+        checkSizes();
+        updSizes()
+        callWarn()
     }
 
     if (e.target.closest('.radio-size-p')) {
@@ -727,12 +742,10 @@ function editSizeEnter() {
 }
 
 function callWarn() {
-    let longSideSize;
     let shortSideSize;
-    let longSideG;
     let shortSideG;
-    let equal = false;
-    let equalG = false;
+    let longSideG;
+    let equalG= false;
     let piecesNums = document.querySelector('.enter-size-pieces').querySelectorAll('.counter__num');
 
     for (let i = 0; i < piecesNums.length; i++) {
@@ -741,81 +754,43 @@ function callWarn() {
         
         if (i > 0) {
             if (parseInt(el.value) >= parseInt(piecesNums[i - 1].value)) {
-                longSideSize = parseInt(el.value)
                 shortSideSize = parseInt(piecesNums[i - 1].value)
             }
         } else {
-            longSideSize = parseInt(el.value)
             shortSideSize = parseInt(piecesNums[i + 1].value)
         }
     }
 
-    if (shortSideSize === longSideSize) {
-        equal = true;
-    } else  {
-        equal = false;
-    }
-
     if (document.querySelector('.enter-size-pieces').classList.contains('opened')) {
-        if (equal != true) {
-            if (longSideSize > 99 || shortSideSize > 56) {
-                hideOrderButton()
-                document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
-                document.querySelector('.creator-main__step_quantity').classList.add('hidden');
+        if (shortSideSize > 56) {
+            hideOrderButton()
+            document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
+            document.querySelector('.creator-main__step_quantity').classList.add('hidden');
     
-                document.querySelector('.enter-size-pieces__button').style.display = 'none'
-                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
-                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
-            } else {
-                if (document.querySelectorAll('.order-box').length > 0) {
-                    document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
-                    document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
-                    showOrderButton()    
-                }
-                
-                document.querySelector('.enter-size-pieces__button').style.display = 'flex'
-                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
-                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
-            }
+            document.querySelector('.enter-size-pieces__button').style.display = 'none'
+            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
+            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
         } else {
-            if (longSideSize > 56 && shortSideSize > 56) {
-                hideOrderButton()
-                if (document.querySelectorAll('.order-box').length > 0) {
-                    document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
-                    document.querySelector('.creator-main__step_quantity').classList.add('hidden');    
-                }
-    
-                document.querySelector('.enter-size-pieces__button').style.display = 'none'
-                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
-                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
-            } else {
-                if (document.querySelectorAll('.order-box').length > 0) {
-                    showOrderButton()
-                    document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
-                    document.querySelector('.creator-main__step_quantity').classList.remove('hidden');        
-                }
-    
-                document.querySelector('.enter-size-pieces__button').style.display = 'flex'
-                document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
-                document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
+            if (document.querySelectorAll('.order-box').length > 0) {
+                document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
+                document.querySelector('.creator-main__step_quantity').classList.remove('hidden');
+                showOrderButton()    
             }
+            
+            document.querySelector('.enter-size-pieces__button').style.display = 'flex'
+            document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
+            document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
         }
     }
 
 
     if (document.querySelector('.size-check').offsetWidth > document.querySelector('.size-check').offsetHeight) {
-        longSideG = document.querySelector('.size-check').offsetWidth;
         shortSideG = document.querySelector('.size-check').offsetHeight;
     } else if (document.querySelector('.size-check').offsetWidth = document.querySelector('.size-check').offsetHeight) {
-        equalG = true;
-        longSideG = document.querySelector('.size-check').offsetWidth;
         shortSideG = document.querySelector('.size-check').offsetHeight;
     } else {
-        longSideG = document.querySelector('.size-check').offsetHeight;
         shortSideG = document.querySelector('.size-check').offsetWidth;
     }
-
-    console.log(longSideG, shortSideG);
 
     if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
         if (equalG != true) {
@@ -839,7 +814,7 @@ function callWarn() {
                 document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'none';
             }
         } else {
-            if (longSideG > 56 && shortSideG > 56) {
+            if (shortSideG > 56) {
                 hideOrderButton()
                 if (document.querySelectorAll('.order-box').length > 0) {
                     document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
@@ -860,6 +835,13 @@ function callWarn() {
                 document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'block';
                 document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'none';
             }
-        }    
+        }
+    
     }
+}
+
+function updateDem() {
+    checkSizes();
+    updSizes()
+    callWarn()
 }

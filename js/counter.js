@@ -24,6 +24,8 @@ document.addEventListener('click', e => {
         }
 
         if (e.target.closest('.creator-main__step_size')) {
+            checkCountSize(num)
+
             checkSizes();
             updSizes()
             callWarn()
@@ -55,6 +57,8 @@ document.addEventListener('input', e => {
                 e.target.value = e.target.value.slice(1);
             }
         }
+        checkCountSize(e.target)
+
         checkSizes();
         updSizes()
         callWarn()
@@ -74,4 +78,26 @@ function calcPrice() {
         }
         el.querySelector('.counter-price__count').textContent = price * parseInt(el.querySelector('.counter__num').value);
     })
+}
+
+function checkCountSize(num) {
+    if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
+        if (parseInt(num.value) > 0) {
+            document.querySelector('.enter-size-gallery__button').removeAttribute("disabled");
+        }
+    }
+    if (document.querySelector('.enter-size-pieces').classList.contains('opened')) {
+        let zero = false;
+        document.querySelector('.enter-size-pieces').querySelectorAll('.counter__num').forEach(el => {
+            if (parseInt(el.value) === 0) {
+                zero = true;
+            }
+        })
+
+        if (zero) {
+            document.querySelector('.enter-size-pieces__button').setAttribute("disabled", true);
+        } else {
+            document.querySelector('.enter-size-pieces__button').removeAttribute("disabled");
+        }
+    }
 }

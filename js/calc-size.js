@@ -200,8 +200,10 @@ document.addEventListener('click', e =>  {
 function checkSizes() {
     if (document.getElementById('cust').checked) {
         if (document.querySelector('.size-check').offsetWidth >= document.querySelector('.size-check').offsetHeight) {
-            document.querySelector('.size-check').style.width = `${document.querySelector('.enter-size-gallery .counter__num').value}px`
+            document.querySelector('.size-check').style.width = `${parseInt(document.querySelector('.enter-size-gallery .counter__num').value)}px`
             document.querySelector('.size-check').style.height = `auto`
+
+            updSizes()
         } else {
             document.querySelector('.size-check').style.width = `auto`
             document.querySelector('.size-check').style.height = `${document.querySelector('.enter-size-gallery .counter__num').value}px`

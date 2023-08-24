@@ -57,13 +57,18 @@ function updDimensions(count) {
             let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / maxPrintsPerPogon);
             
             if (document.getElementById('cust').checked) {
-                let currentEl;
-                document.querySelectorAll('.order-box').forEach(el => {
-                    if (el.querySelector('.order-box__size').textContent === `${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm`) {
-                        currentEl = el;
+                if (document.querySelectorAll('.order-box').length > 0) {
+                    let currentEl;
+
+                    document.querySelectorAll('.order-box').forEach(el => {
+                        if (el.querySelector('.order-box__size').textContent === `${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm`) {
+                            currentEl = el;
+                        }
+                    })
+                    if (currentEl != undefined) {
+                        currentEl.querySelector('.counter-price__count').setAttribute('data-price-count', printPrice.toFixed(2))    
                     }
-                })
-                currentEl.querySelector('.counter-price__count').setAttribute('data-price-count', printPrice.toFixed(2))
+                }
             } else {
                 document.querySelectorAll('.order-box')[document.querySelectorAll('.order-box').length - 1].querySelector('.counter-price__count').setAttribute('data-price-count', printPrice.toFixed(2))
             }
