@@ -213,7 +213,7 @@ document.addEventListener('change', e => {
         document.querySelector('.enter-size-pieces__button').setAttribute("disabled", true);
         document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent = 0
         document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent = 0
-        
+
         document.getElementById('rec-l').style.display = 'none';
 
         document.querySelectorAll('.radio-size-p').forEach(el => {
@@ -438,7 +438,24 @@ document.addEventListener('click', e => {
         document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
         document.querySelector(".creator-main__step_quantity").classList.add('hidden')
         hideOrderButton()
-        document.querySelector('.size-check').setAttribute('src', document.querySelector('.radio-print-p_current .radio-box__preview img').getAttribute('src'));  
+        document.querySelector('.size-check').setAttribute('src', document.querySelector('.radio-print-p_current .radio-box__preview img').getAttribute('src')); 
+        
+        
+        // Adding size text for each of the sizes
+        document.querySelectorAll('.radio-size-p').forEach(el => {
+            let oldSize = el.getAttribute('data-size-name');
+            let longSideSize = parseInt(el.getAttribute('data-long-side-size'));
+
+            if (document.querySelector('.size-check').offsetWidth >= document.querySelector('.size-check').offsetHeight) {
+                document.querySelector('.size-check').style.width = `${longSideSize}px`
+                document.querySelector('.size-check').style.height = `auto`
+            } else {
+                document.querySelector('.size-check').style.width = `auto`
+                document.querySelector('.size-check').style.height = `${longSideSize}px`
+            }
+
+            el.querySelector('.radio-box__label').innerHTML = `${oldSize}<br>(${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm)`
+        })
     }
 
     if (e.target.closest('.radio-color')) {
