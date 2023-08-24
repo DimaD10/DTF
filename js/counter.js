@@ -84,6 +84,34 @@ document.addEventListener('input', e => {
         }
         checkCountSize(e.target)
 
+        document.querySelector('.size-check').style.width = `auto`
+        document.querySelector('.size-check').style.height = `auto`
+        checkSizes()
+        updSizes()
+        checkCountSize(e.target)
+        let printWidth = parseFloat(document.querySelector('.size-check').offsetWidth) + 1;
+        let printHeight = parseFloat(document.querySelector('.size-check').offsetHeight) + 1;
+        let maxPrintsPerPogon = calculatePrintsPerMeter(printWidth, printHeight, pogonWidth, pogonHeight);
+        let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / maxPrintsPerPogon);
+        if (parseInt(printPrice) < 1) {
+            if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
+                document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent = 1;
+            } else if (document.querySelector('.enter-size-pieces').classList.contains('opened')) {
+                checkSizes();
+                updSizes()
+                document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent = 1;
+                console.log(document.querySelector('.size-check').offsetWidth, document.querySelector('.size-check').offsetHeight);
+            }
+        } else {
+            if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
+                document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent = parseInt(printPrice);
+            } else if (document.querySelector('.enter-size-pieces').classList.contains('opened')) {
+                checkSizes();
+                updSizes()
+                document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent = parseInt(printPrice);
+            }
+        }
+
         checkSizes();
         updSizes()
         callWarn()

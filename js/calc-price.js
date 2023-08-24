@@ -78,10 +78,10 @@ function updDimensions(count) {
 }
 
 function calcTotalPrice() {
-    let totalPrice = 0;
+    let totalPrice = 0.00;
     document.querySelectorAll('.counter-price__count').forEach(el => {
         totalPrice += parseInt(el.textContent);
     })
 
-    document.querySelector('.total-bill__value-num').textContent = totalPrice;
+    document.querySelector('.total-bill__value-num').textContent = `${totalPrice}.00`;
 }
