@@ -95,8 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             rmTypes()
             document.querySelector('.enter-size-gallery .counter__num').value = 0;
-            document.querySelector('.enter-size-gallery__button').addAttribute("disabled", true);
-            console.log(true);
+            document.querySelector('.enter-size-gallery__button').setAttribute("disabled", true);
+            document.querySelector('.enter-size-pieces').querySelectorAll('.counter__num').forEach(el => {
+              el.value = 0
+            })
+            document.querySelector('.enter-size-pieces__button').setAttribute("disabled", true);
+            document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent = 0
+            document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent = 0
           } else {
             hideOrderButton()
             el.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
@@ -228,6 +233,8 @@ function updPreview(el) {
       el.value = 0
     })
     document.querySelector('.enter-size-pieces__button').setAttribute("disabled", true);
+    document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent = 0
+    document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent = 0
   } else {
     hideOrderButton()
     el.target.closest('.dragndrop').querySelector('.dragndrop__preview').style.display = 'none';
