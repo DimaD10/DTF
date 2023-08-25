@@ -7,17 +7,19 @@ document.addEventListener('click', e => {
         if (e.target.textContent === '-') {
             if (num.value >= 2) {
                 num.value = num.value - 1;
-                updDimensions(num.value)
+                //updDimensions(num.value)
             } else {
                 num.disabled;
             }
         } else if (e.target.textContent === '+') {
             num.value++ 
-            updDimensions(num.value)
+            //updDimensions(num.value)
             //showOrderButton()
         }
 
         if (e.target.closest('.counter-quantity')) {
+
+            updDimensions(num.value)
             calcPrice();
             calcTotalPrice()
             editSizeEnter()
@@ -32,7 +34,7 @@ document.addEventListener('click', e => {
             let printWidth = parseFloat(document.querySelector('.size-check').offsetWidth) + 1;
             let printHeight = parseFloat(document.querySelector('.size-check').offsetHeight) + 1;
             let maxPrintsPerPogon = calculatePrintsPerMeter(printWidth, printHeight, pogonWidth, pogonHeight);
-            let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / maxPrintsPerPogon);
+            let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / 1);
             if (parseInt(printPrice) < 1) {
                 if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
                     document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent = 1;
@@ -40,7 +42,6 @@ document.addEventListener('click', e => {
                     checkSizes();
                     updSizes()
                     document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent = 1;
-                    console.log(document.querySelector('.size-check').offsetWidth, document.querySelector('.size-check').offsetHeight);
                 }
             } else {
                 if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
@@ -54,6 +55,8 @@ document.addEventListener('click', e => {
 
             checkSizes();
             updSizes()
+            callWarn()
+            updTable()
         }
     }
 })
@@ -68,6 +71,7 @@ document.addEventListener('input', e => {
                 e.target.value = e.target.value.slice(1);
             }
             showOrderButton()
+            updDimensions(e.target.value)
         }
         calcPrice();
         calcTotalPrice();
@@ -92,7 +96,7 @@ document.addEventListener('input', e => {
         let printWidth = parseFloat(document.querySelector('.size-check').offsetWidth) + 1;
         let printHeight = parseFloat(document.querySelector('.size-check').offsetHeight) + 1;
         let maxPrintsPerPogon = calculatePrintsPerMeter(printWidth, printHeight, pogonWidth, pogonHeight);
-        let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / maxPrintsPerPogon);
+        let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / 1);
         if (parseInt(printPrice) < 1) {
             if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
                 document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent = 1;
@@ -100,7 +104,6 @@ document.addEventListener('input', e => {
                 checkSizes();
                 updSizes()
                 document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent = 1;
-                console.log(document.querySelector('.size-check').offsetWidth, document.querySelector('.size-check').offsetHeight);
             }
         } else {
             if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
@@ -115,6 +118,7 @@ document.addEventListener('input', e => {
         checkSizes();
         updSizes()
         callWarn()
+        updTable()
     }
 })
 
@@ -151,6 +155,39 @@ function checkCountSize(num) {
             document.querySelector('.enter-size-pieces__button').setAttribute("disabled", true);
         } else {
             document.querySelector('.enter-size-pieces__button').removeAttribute("disabled");
+        }
+    }
+}
+
+function updTable() {
+    if (document.getElementById('cust').checked && document.getElementById('artwork-y').checked) {
+
+        if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
+            let price = parseInt(document.querySelector('.enter-size-gallery__preview-price .preview-price').textContent)
+            let stockPrice = price - 15;
+            
+            document.querySelector('.enter-size-gallery').querySelectorAll('.demo-table__calc-v').forEach(el => {
+                let count = parseInt(el.getAttribute('data-quantity'));
+
+                el.textContent = parseInt(stockPrice + 15 / count);
+                if (parseInt(el.textContent) === 0) {
+                    el.textContent = 1;
+                }
+            })
+        } 
+        
+        if (document.querySelector('.enter-size-pieces').classList.contains('opened')) {
+            let price = parseInt(document.querySelector('.enter-size-pieces__preview-price .preview-price').textContent)
+            let stockPrice = price - 15;
+
+            document.querySelector('.enter-size-pieces').querySelectorAll('.demo-table__calc-v').forEach(el => {
+                let count = parseInt(el.getAttribute('data-quantity'));
+
+                el.textContent = parseInt(stockPrice + 15 / count);
+                if (parseInt(el.textContent) === 0) {
+                    el.textContent = 1;
+                }
+            })
         }
     }
 }

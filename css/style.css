@@ -1634,3 +1634,30 @@ input[type=number]::-webkit-inner-spin-button {
   font-size: 20px;
   font-weight: 700;
 }
+
+.demo-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.demo-table__title {
+  text-align: left !important;
+  font-weight: 700;
+  background-color: #ccc;
+}
+.demo-table table, .demo-table th, .demo-table td {
+  border: 1px solid black;
+}
+.demo-table td {
+  padding: 6px 12px;
+  text-align: center;
+  font-size: 18px;
+}
+@media (max-width: 480px) {
+  .demo-table td {
+    padding: 6px;
+    font-size: 14px;
+  }
+}
+.demo-table tr:first-child td {
+  font-weight: 700;
+}

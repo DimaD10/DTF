@@ -1,5 +1,5 @@
-const pogonWidth = 100;
-const pogonHeight = 57;
+const pogonWidth = 101;
+const pogonHeight = 58;
 
 const basePrice = 15;
 const pricePerPogon = 60;
@@ -30,7 +30,7 @@ function updDimensions(count) {
     if (document.getElementById('artwork-y').checked) {
         if (document.querySelector('.creator-main__step_quantity').classList.contains('creator-main__step_current') && !document.querySelector('.creator-main__step_quantity').classList.contains('hidden')) {
             let maxPrintsPerPogon = calculatePrintsPerMeter(printWidth, printHeight, pogonWidth, pogonHeight);
-            let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / maxPrintsPerPogon);
+            let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / count);
         
             if (document.getElementById('custom').checked) {
                 if (document.querySelectorAll('.order-box').length > 0) {
@@ -54,7 +54,7 @@ function updDimensions(count) {
     } else {
         if (document.querySelector('.creator-main__step_quantity').classList.contains('creator-main__step_current') && !document.querySelector('.creator-main__step_quantity').classList.contains('hidden')) {
             let maxPrintsPerPogon = calculatePrintsPerMeter(printWidth, printHeight, pogonWidth, pogonHeight);
-            let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / maxPrintsPerPogon);
+            let printPrice = (pricePerPogon / maxPrintsPerPogon) + (basePrice / count);
             
             if (document.getElementById('cust').checked) {
                 if (document.querySelectorAll('.order-box').length > 0) {

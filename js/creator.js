@@ -140,6 +140,9 @@ document.addEventListener('change', e => {
     }
 
     if (e.target === document.getElementById('artwork-n')) {
+        document.querySelectorAll('.demo-table').forEach(el => {
+            el.style.display = 'none';
+        })
         document.querySelector('.enter-size-gallery .counter__num').value = 0;
         document.querySelector('.enter-size-gallery__button').setAttribute("disabled", true);
         document.querySelector('.enter-size-pieces').querySelectorAll('.counter__num').forEach(el => {
@@ -202,9 +205,16 @@ document.addEventListener('change', e => {
         addDescr('artwork', '')
         addDescr('size', '')
         document.querySelector('.prod-preview').classList.remove('active');
+
+        document.querySelectorAll('.demo-table').forEach(el => {
+            el.style.display = 'none';
+        })
     }
 
     if (e.target === document.getElementById('artwork-y')) {
+        document.querySelectorAll('.demo-table').forEach(el => {
+            el.style.display = 'table';
+        })
         document.querySelector('.enter-size-gallery .counter__num').value = 0;
         document.querySelector('.enter-size-gallery__button').setAttribute("disabled", true);
         document.querySelector('.enter-size-pieces').querySelectorAll('.counter__num').forEach(el => {
@@ -456,6 +466,11 @@ document.addEventListener('click', e => {
 
             el.querySelector('.radio-box__label').innerHTML = `${oldSize}<br>(${document.querySelector('.size-check').offsetWidth}cm x ${document.querySelector('.size-check').offsetHeight}cm)`
         })
+
+        document.querySelectorAll('.demo-table').forEach(el => {
+            el.style.display = 'none';
+        })
+        document.querySelector('.enter-size-gallery__table').style.display = 'none';
     }
 
     if (e.target.closest('.radio-color')) {
@@ -778,6 +793,7 @@ function editSizeEnter() {
 
 function callWarn() {
     let shortSideSize;
+    let longSideSize
     let shortSideG;
     let longSideG;
     let equalG= false;
@@ -789,15 +805,17 @@ function callWarn() {
         
         if (i > 0) {
             if (parseInt(el.value) >= parseInt(piecesNums[i - 1].value)) {
+                longSideSize = parseInt(el.value)
                 shortSideSize = parseInt(piecesNums[i - 1].value)
             }
         } else {
+            longSideSize = parseInt(el.value)
             shortSideSize = parseInt(piecesNums[i + 1].value)
         }
     }
 
     if (document.querySelector('.enter-size-pieces').classList.contains('opened')) {
-        if (shortSideSize > 56) {
+        if (shortSideSize > 57 || longSideSize > 100) {
             hideOrderButton()
             document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
             document.querySelector('.creator-main__step_quantity').classList.add('hidden');
@@ -805,6 +823,12 @@ function callWarn() {
             document.querySelector('.enter-size-pieces__button').style.display = 'none'
             document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'none';
             document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'block';
+            document.querySelector('.enter-size-pieces').querySelector('.enter-size-contact').style.display = "block"
+            document.querySelectorAll('.demo-table').forEach(el => {
+                el.style.display = 'none';
+            })
+
+            document.querySelector('.enter-size-pieces__preview-price').style.display = "none";
         } else {
             if (document.querySelectorAll('.order-box').length > 0) {
                 document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
@@ -815,6 +839,12 @@ function callWarn() {
             document.querySelector('.enter-size-pieces__button').style.display = 'flex'
             document.querySelector('.enter-size-pieces .enter-size-paragraph').style.display = 'block';
             document.querySelector('.enter-size-pieces .enter-size-warn').style.display = 'none';
+            document.querySelector('.enter-size-pieces').querySelector('.enter-size-contact').style.display = "none"
+            document.querySelectorAll('.demo-table').forEach(el => {
+                el.style.display = 'table';
+            })
+
+            document.querySelector('.enter-size-pieces__preview-price').style.display = "block";
         }
     }
 
@@ -829,7 +859,7 @@ function callWarn() {
 
     if (document.querySelector('.enter-size-gallery').classList.contains('opened')) {
         if (equalG != true) {
-            if (longSideG > 99 || shortSideG > 56) {
+            if (longSideG > 100 || shortSideG > 57) {
                 hideOrderButton()
                 document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
                 document.querySelector('.creator-main__step_quantity').classList.add('hidden');
@@ -837,6 +867,13 @@ function callWarn() {
                 document.querySelector('.enter-size-gallery__button').style.display = 'none'
                 document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'none';
                 document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'block';
+                document.querySelector('.enter-size-gallery').querySelector('.enter-size-contact').style.display = "block"
+
+                document.querySelectorAll('.demo-table').forEach(el => {
+                    el.style.display = 'none';
+                })
+
+                document.querySelector('.enter-size-gallery__preview-price').style.display = "none";
             } else {
                 if (document.querySelectorAll('.order-box').length > 0) {
                     document.querySelector(".creator-main__step_quantity").classList.add('creator-main__step_current');
@@ -847,9 +884,17 @@ function callWarn() {
                 document.querySelector('.enter-size-gallery__button').style.display = 'flex'
                 document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'block';
                 document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'none';
+                document.querySelector('.enter-size-gallery').querySelector('.enter-size-contact').style.display = "none"
+                if (document.getElementById('artwork-y').checked) {
+                    document.querySelectorAll('.demo-table').forEach(el => {
+                        el.style.display = 'table';
+                    })
+                }
+
+                document.querySelector('.enter-size-gallery__preview-price').style.display = "block";
             }
         } else {
-            if (shortSideG > 56) {
+            if (shortSideG > 57) {
                 hideOrderButton()
                 if (document.querySelectorAll('.order-box').length > 0) {
                     document.querySelector(".creator-main__step_quantity").classList.remove('creator-main__step_current');
@@ -859,6 +904,12 @@ function callWarn() {
                 document.querySelector('.enter-size-gallery__button').style.display = 'none'
                 document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'none';
                 document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'block';
+                document.querySelector('.enter-size-gallery').querySelector('.enter-size-contact').style.display = "block"
+                document.querySelectorAll('.demo-table').forEach(el => {
+                    el.style.display = 'none';
+                })
+
+                document.querySelector('.enter-size-gallery__preview-price').style.display = "none";
             } else {
                 if (document.querySelectorAll('.order-box').length > 0) {
                     showOrderButton()
@@ -869,6 +920,14 @@ function callWarn() {
                 document.querySelector('.enter-size-gallery__button').style.display = 'flex'
                 document.querySelector('.enter-size-gallery .enter-size-paragraph').style.display = 'block';
                 document.querySelector('.enter-size-gallery .enter-size-warn').style.display = 'none';
+                document.querySelector('.enter-size-gallery').querySelector('.enter-size-contact').style.display = "none"
+                if (document.getElementById('artwork-y').checked) {
+                    document.querySelectorAll('.demo-table').forEach(el => {
+                        el.style.display = 'table';
+                    })
+                }
+
+                document.querySelector('.enter-size-gallery__preview-price').style.display = "block";
             }
         }
     
