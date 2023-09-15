@@ -1661,3 +1661,7 @@ input[type=number]::-webkit-inner-spin-button {
 .demo-table tr:first-child td {
   font-weight: 700;
 }
+
+.dragndrop__area {
+  display: none;
+}
